@@ -36,7 +36,6 @@ def show_box(self, board):
                 else:
                     self.show_text(board[i][j], 31, 'WHITE', i * 90 + 22.5, j * 90 + 36)
 
-
 def show_score(self, score):
     """
     게임 도중 scree 에 점수를 표시하는 함수
