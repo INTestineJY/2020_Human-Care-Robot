@@ -16,9 +16,6 @@ def show_text(self, word, font_size, color, position_x, position_y):
 
 
 
-
-
-
 def show_box(self, board):
     """
     GUI 에 박스를 표현하는 함수
