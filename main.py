@@ -1,6 +1,6 @@
 Voice = 1
 Usertype = 1
-Purpose = 1
+Purpose = 0
 
 
 while(True):
@@ -34,20 +34,16 @@ while(True):
             Purpose = purpose_choice()
             pass
 
-        elif choice1 == 4:
-            # 다음 버튼을 누른 것. voice, usertype, purpose는 모두 default값이 있으니 다음 단계로 넘어감
+        elif choice1 == 4 and Purpose == 0:
+            # 사용 목적을 선택해달란 경고가 뜸
             pass
 
-    # 특정 목적지 / 학교 순회 중 선택
+        elif choice1 == 4 and Purpose != 0:
+            # 다음 버튼을 누른 것. voice, usertype는 모두 default값이 있으니 다음 단계로 넘어감
+            pass
+
+    # 특정 목적지 / 학교 순회 중 선택은 purpose에서 이루어짐
     # 특정 목적지 = 1 / 학교 순회 = 2
-    # choose() 는 두번째 선택 함수
 
-    choice2 = choose()
-
-    if choice2 == 1:
-        # 특정 목적지 입력
-        pass
-    elif choice2 == 2:
-        # 학교 순회
-        pass
+    if Purpose == 1:
 
