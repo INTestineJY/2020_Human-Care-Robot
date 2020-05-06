@@ -8,6 +8,7 @@ list_purpose2 = []
 # Purpose 1 은 한군데만 (리스트 안에 든 것도 하나만)
 # Purpose 2 는 학교 순회 (순회하는 곳의 순서에 맞춰 리스트에 미리 넣어두기)
 
+
 while (True):
     # start_screen()은 시작 화면을 보여주는 함수
     start_screen()
