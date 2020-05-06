@@ -8,7 +8,7 @@ list_purpose2 = []
 # Purpose 1 은 한군데만 (리스트 안에 든 것도 하나만)
 # Purpose 2 는 학교 순회 (순회하는 곳의 순서에 맞춰 리스트에 미리 넣어두기)
 
-while (True):
+while True:
     # start_screen()은 시작 화면을 보여주는 함수
     start_screen()
 
@@ -19,7 +19,7 @@ while (True):
     # 3 : 사용 목적 선택
     # 4 : 다음 버튼 (다음 단계로 그냥 진행. 선택하지 않고)
 
-    while (True):
+    while True:
         choice1 = choice()
         if choice1 == 1:
             # 목소리 선택
