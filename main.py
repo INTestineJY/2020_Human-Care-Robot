@@ -46,4 +46,9 @@ while(True):
     # 특정 목적지 = 1 / 학교 순회 = 2
 
     if Purpose == 1:
+        # 특정 목적지로 안내함
+        pass
 
+    elif Purpose == 2:
+        # 학교내부를 순회함
+        pass
