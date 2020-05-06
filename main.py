@@ -43,7 +43,7 @@ while(True):
             break
             pass
 
-    # 여기서 Voice 에 따라 음성 바꾸기
+
 
     # 특정 목적지 / 학교 순회 중 선택은 purpose에서 이루어짐
     # 특정 목적지 = 1 / 학교 순회 = 2
