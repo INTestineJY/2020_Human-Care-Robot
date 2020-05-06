@@ -21,6 +21,7 @@ elif choice1 == 3:
 
 # 특정 목적지 / 학교 순회 중 선택
 # 특정 목적지 = 1 / 학교 순회 = 2
+# choose() 는 두번째 선택 함수
 
 choice2 = choose()
 
