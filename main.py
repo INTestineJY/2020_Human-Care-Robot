@@ -40,10 +40,18 @@ while(True):
 
         elif choice1 == 4 and Purpose != 0:
             # 다음 버튼을 누른 것. voice, usertype는 모두 default값이 있으니 다음 단계로 넘어감
+            break
             pass
+
+
 
     # 특정 목적지 / 학교 순회 중 선택은 purpose에서 이루어짐
     # 특정 목적지 = 1 / 학교 순회 = 2
 
     if Purpose == 1:
+        # 특정 목적지로 안내함
+        pass
 
+    elif Purpose == 2:
+        # 학교내부를 순회함
+        pass
