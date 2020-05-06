@@ -11,7 +11,9 @@ while(True):
     # 3 : 사용 목적 선택
 
     # start_screen()은 시작 화면을 보여주는 함수
-    choice1 = start_screen()
+    start_screen()
+
+    choice1 = choice()
 
     if choice1 == 1:
         # 목소리 선택
