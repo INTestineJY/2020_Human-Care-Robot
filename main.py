@@ -15,6 +15,7 @@ if choice1 == 1:
 elif choice1 == 2:
     # 사용자 유형 선택
     pass
+
 elif choice1 == 3:
     # 사용 목적 선택
     pass
