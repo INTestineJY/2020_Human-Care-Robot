@@ -19,6 +19,10 @@ class MainWidget(QWidget):
 
         start_image = QImage("./image/start_image.png")
 
+        voice_button = QPushButton("목소리 선택")
+        usertype_button = QPushButton("사용자 유형 선택")
+        purpose_button = QPushButton("사용 목적 선택")
+
         start_window = QVBoxLayout()
         start_window.addWidget(start_image)
         self.setLayout(start_window)
