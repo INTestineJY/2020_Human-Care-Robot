@@ -21,6 +21,7 @@ list_purpose2 = []
 
 
 def screen1(x, y):
+    # 클릭을 할 때 좌표가 어떤 걸 클릭했는지 판별하는 함수
     pass
 
 
@@ -35,7 +36,7 @@ def start_screen():
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
 
-        if screen == 0 :
+        if screen == 0:
             # 첫 화면
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
