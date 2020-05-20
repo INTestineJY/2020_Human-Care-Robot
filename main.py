@@ -25,12 +25,22 @@ def screen1(x, y):
     pass
 
 
+def check(mousex, mousey, leftupx, leftupy, rightdownx, rightdowny):
+    # 특정 부분에 클릭이 되었는지 판별하는 함수
+    if leftupx <= mousex <= rightdownx and leftupy <= mousey <= rightdowny:
+        return True
+    return False
+
+
 def start_screen():
     global screen
     done = False
 
     while not done:
         clock.tick(10)
+
+        # 화면을 띄운다
+
 
         for event in pygame.event.get():  # User did something
             if event.type == pygame.QUIT:  # If user clicked close
