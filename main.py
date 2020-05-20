@@ -1,6 +1,7 @@
 # coding=utf-8
 import pygame
 pygame.init()
+clock = pygame.time.Clock()
 
 Voice = 1
 Usertype = 1
@@ -95,7 +96,6 @@ done = False
 while not done:
     ourscreen.fill((10,100,100))
     ourscreen.blit(background, (0, 0))
-    # clock.tick(10)
 
     # 화면을 띄운다
 
@@ -133,6 +133,8 @@ while not done:
         # 돌아다니면서 설명할 때
         pass
 
+    pygame.display.update()
+    clock.tick(10)
     pass
 
 print("finish")
