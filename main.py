@@ -36,18 +36,6 @@ for i in range(5):
     screen_list.append(example_screen)
 
 
-def screen1(x, y):
-    # 클릭을 할 때 좌표가 어떤 걸 클릭했는지 판별하는 함수
-    pass
-
-
-def check(mousex, mousey, leftupx, leftupy, rightdownx, rightdowny):
-    # 특정 부분에 클릭이 되었는지 판별하는 함수
-    if leftupx <= mousex <= rightdownx and leftupy <= mousey <= rightdowny:
-        return True
-    return False
-
-
 done = False
 
 while not done:
