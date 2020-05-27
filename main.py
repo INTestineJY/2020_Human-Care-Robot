@@ -1,5 +1,6 @@
 # coding=utf-8
 import pygame
+from deokyongkim import *
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -28,10 +29,11 @@ height = 600
 
 ourscreen = pygame.display.set_mode((width, height))
 
-backimg0 = pygame.image.load("./image/test_image/대지 1.png")
-background0 = pygame.transform.scale(backimg0, (width, height))
-backimg1 = pygame.image.load("./image/test_image/대지 2.png")
-background1 = pygame.transform.scale(backimg1, (width, height))
+screen_list = []
+
+for i in range(5):
+    example_screen = Scene(i)
+    screen_list.append(example_screen)
 
 
 def screen1(x, y):
@@ -43,19 +45,18 @@ def check(mousex, mousey, leftupx, leftupy, rightdownx, rightdowny):
     # 특정 부분에 클릭이 되었는지 판별하는 함수
     if leftupx <= mousex <= rightdownx and leftupy <= mousey <= rightdowny:
         return True
-    return Falseㄴ
+    return False
 
 
 done = False
 
 while not done:
     ourscreen.fill((10, 100, 100))
+    ourscreen.blit(screen_list[screen].sheet, (0, 0))
 
     # 화면을 띄운다
 
     if screen == 0:
-        ourscreen.blit(background0, (0, 0))
-
         # 첫 화면
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # If user clicked close
@@ -65,7 +66,6 @@ while not done:
                 screen = 1
 
     elif screen == 1:
-        ourscreen.blit(background1, (0, 0))
         # 목소리/목적/다음화면 선택화면
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # If user clicked close
