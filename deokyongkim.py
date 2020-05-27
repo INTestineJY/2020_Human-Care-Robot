@@ -22,6 +22,7 @@ class Scene:
         image_name = "./image/test_image/"+self.scene_list[scene_number]+".png"
         self.sheet = pygame.image.load(image_name)
         self.buttons = []
+        self.add_button()
 
     def add_button(self):
         """
@@ -34,19 +35,23 @@ class Scene:
         f = open('screen_button.txt', 'r')
         while True:
             line = f.readline()
-
+            line = line[:-1]
             if line == number:
                 while True:
                     line = f.readline()
-                    if line == '#' + str(self.scene_number+1):
+                    line = line[:-1]
+                    print(line)
+                    if line == '#' + str(self.scene_number+1) or not line:
                         break
                     pos = line.split(' ')
-                    x1 = pos[0]
-                    y1 = pos[1]
+                    print(pos)
+                    x1 = int(pos[0])
+                    y1 = int(pos[1])
                     line = f.readline()
+                    line = line[:-1]
                     pos = line.split(' ')
-                    x2 = pos[0]
-                    y2 = pos[1]
+                    x2 = int(pos[0])
+                    y2 = int(pos[1])
                     line = f.readline()
 
                     temporary_b = Button(x1, y1, x2, y2)

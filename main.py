@@ -33,15 +33,14 @@ screen_list = []
 
 for i in range(5):
     example_screen = Scene(i)
-    example_screen.add_button()
     screen_list.append(example_screen)
-
 
 done = False
 
 while not done:
     ourscreen.fill((10, 100, 100))
-    ourscreen.blit(screen_list[screen].sheet, (0, 0))
+    now_screen = screen_list[screen]
+    ourscreen.blit(now_screen.sheet, (0, 0))
 
     # 화면을 띄운다
 
@@ -59,8 +58,13 @@ while not done:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
-            # if event.type == pygame.MOUSEBUTTONDOWN:
-            # screen1_check = screen1(event.pos[0], event.pos[1])
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                i = 0
+                for button in now_screen.buttons:
+                    i += 1
+                    if button.isClicked(event.pos[0], event.pos[1]) is True:
+                        screen += i
+                        break
 
         # if screen1_check != 0:
         # screen = screen1_check
@@ -68,10 +72,18 @@ while not done:
 
     elif screen == 2:
         # 목소리 선택
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
         pass
 
     elif screen == 3:
         # 목적 선택
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
         pass
 
     else:
