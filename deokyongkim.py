@@ -17,15 +17,41 @@ class Button:
 class Scene:
 
     def __init__(self, scene_number):
+        self.scene_number = scene_number
         self.scene_list = ['대지 1', '대지 2', '대지 3', '대지 4', '대지 5']
         image_name = "./image/test_image/"+self.scene_list[scene_number]+".png"
         self.sheet = pygame.image.load(image_name)
         self.buttons = []
 
-    def add_button(self, button):
+    def add_button(self):
         """
         Scene 에 포함되어 있는 button을 buttons 리스트에 추가함
         :param button: 위에서 선언한 class Button
         :return:
         """
-        self.buttons.append(button)
+        number = '#' + str(self.scene_number)
+
+        f = open('screen_button.txt', 'r')
+        while True:
+            line = f.readline()
+
+            if line == number:
+                while True:
+                    line = f.readline()
+                    if line == '#' + str(self.scene_number+1):
+                        break
+                    pos = line.split(' ')
+                    x1 = pos[0]
+                    y1 = pos[1]
+                    line = f.readline()
+                    pos = line.split(' ')
+                    x2 = pos[0]
+                    y2 = pos[1]
+
+                    temporary_b = Button(x1, y1, x2, y2)
+                    self.buttons.append(temporary_b)
+
+            if not line:
+                break
+            print(line)
+
