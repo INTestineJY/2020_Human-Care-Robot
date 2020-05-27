@@ -1,5 +1,6 @@
 # coding=utf-8
 import pygame
+
 pygame.init()
 clock = pygame.time.Clock()
 
@@ -17,7 +18,6 @@ screen = 0
 list_purpose1 = []
 list_purpose2 = []
 
-
 # 목적에 맞춘 목적지 순서 리스트
 # Purpose 1 은 한군데만 (리스트 안에 든 것도 하나만)
 # Purpose 2 는 학교 순회 (순회하는 곳의 순서에 맞춰 리스트에 미리 넣어두기)
@@ -28,8 +28,10 @@ height = 600
 
 ourscreen = pygame.display.set_mode((width, height))
 
-backimg = pygame.image.load("./image/test_image/대지 1.png")
-background = pygame.transform.scale(backimg, (width, height))
+backimg0 = pygame.image.load("./image/test_image/대지 1.png")
+background0 = pygame.transform.scale(backimg0, (width, height))
+backimg1 = pygame.image.load("./image/test_image/대지 2.png")
+background1 = pygame.transform.scale(backimg1, (width, height))
 
 
 def screen1(x, y):
@@ -53,7 +55,6 @@ def start_screen():
         # clock.tick(10)
 
         # 화면을 띄운다
-
 
         for event in pygame.event.get():  # User did something
             if event.type == pygame.QUIT:  # If user clicked close
@@ -94,32 +95,33 @@ def start_screen():
 done = False
 
 while not done:
-    ourscreen.fill((10,100,100))
-    ourscreen.blit(background, (0, 0))
+    ourscreen.fill((10, 100, 100))
 
     # 화면을 띄운다
 
-
-    for event in pygame.event.get():  # User did something
-        if event.type == pygame.QUIT:  # If user clicked close
-            done = True
-
     if screen == 0:
+        ourscreen.blit(background0, (0, 0))
+
         # 첫 화면
         for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
+                print("change screen")
                 screen = 1
-                continue
 
     elif screen == 1:
+        ourscreen.blit(background1, (0, 0))
         # 목소리/목적/다음화면 선택화면
         for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                screen1_check = screen1(event.pos[0], event.pos[1])
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+            # if event.type == pygame.MOUSEBUTTONDOWN:
+            # screen1_check = screen1(event.pos[0], event.pos[1])
 
-        if screen1_check != 0:
-            screen = screen1_check
-            continue
+        # if screen1_check != 0:
+        # screen = screen1_check
+        # continue
 
     elif screen == 2:
         # 목소리 선택
