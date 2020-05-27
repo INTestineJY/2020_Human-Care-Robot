@@ -47,6 +47,7 @@ class Scene:
                     pos = line.split(' ')
                     x2 = pos[0]
                     y2 = pos[1]
+                    line = f.readline()
 
                     temporary_b = Button(x1, y1, x2, y2)
                     self.buttons.append(temporary_b)
