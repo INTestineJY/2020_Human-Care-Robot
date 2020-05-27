@@ -33,6 +33,7 @@ screen_list = []
 
 for i in range(5):
     example_screen = Scene(i)
+    example_screen.add_button()
     screen_list.append(example_screen)
 
 
