@@ -46,52 +46,6 @@ def check(mousex, mousey, leftupx, leftupy, rightdownx, rightdowny):
     return False
 
 
-def start_screen():
-    global screen
-    done = False
-
-    while not done:
-        ourscreen.blit(backimg, (0, 0))
-        # clock.tick(10)
-
-        # 화면을 띄운다
-
-        for event in pygame.event.get():  # User did something
-            if event.type == pygame.QUIT:  # If user clicked close
-                done = True
-
-        if screen == 0:
-            # 첫 화면
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    screen = 1
-                    continue
-
-        elif screen == 1:
-            # 목소리/목적/다음화면 선택화면
-            for event in pygame.event.get():
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    screen1_check = screen1(event.pos[0], event.pos[1])
-
-            if screen1_check != 0:
-                screen = screen1_check
-                continue
-
-        elif screen == 2:
-            # 목소리 선택
-            pass
-
-        elif screen == 3:
-            # 목적 선택
-            pass
-
-        else:
-            # 돌아다니면서 설명할 때
-            pass
-
-        pass
-
-
 done = False
 
 while not done:
