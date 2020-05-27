@@ -21,9 +21,10 @@ class Scene:
         self.sheet = pygame.image.load(self.scene_list[scene_number])
         self.buttons = []
 
-    def add_button(self, position):
+    def add_button(self, button):
         """
-        :param position: list, [leftupx, leftupy, rightdownx, rightdowny]
+        Scene 에 포함되어 있는 button을 buttons 리스트에 추가함
+        :param button: 위에서 선언한 class Button
         :return:
         """
-        self.buttons.append(position)
+        self.buttons.append(button)
