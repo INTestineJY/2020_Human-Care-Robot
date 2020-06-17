@@ -37,7 +37,7 @@ class Scene:
         f = open('screen_button.txt', 'r')
         while True:
             line = f.readline()
-            line = line[:-1]
+            line = line[:-1] # 엔터키 없앰
             if line == number:
                 while True:
                     line = f.readline()

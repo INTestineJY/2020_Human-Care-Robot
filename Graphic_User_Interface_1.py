@@ -51,8 +51,6 @@ QPushButton은 버튼을 누른다 메모""", self)
         self.move(qr.topLeft())
 
 
-
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = MyApp()
