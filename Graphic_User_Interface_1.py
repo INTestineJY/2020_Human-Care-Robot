@@ -6,11 +6,11 @@ from PyQt5.QtCore import Qt
 
 Text = ""
 
+
 class MyApp(QWidget):
 
     def __init__(self):
         super().__init__()
-
         self.initUI()
 
     def initUI(self):
