@@ -155,6 +155,23 @@ while not done:
                         break
         pass
 
+    elif 7 <= screen <= 12:
+        # 세부 강의실 선택 화면
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                i = 0
+                for button in now_screen.buttons:
+                    i += 1
+                    button_check = False
+                    if button.isClicked(event.pos[0], event.pos[1]) is True:
+                        screen = 0
+
+                    if button_check is True:
+                        break
+
 
     else:
         # 돌아다니면서 설명할 때
