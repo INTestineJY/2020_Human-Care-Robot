@@ -42,11 +42,11 @@ class Scene:
                 while True:
                     line = f.readline()
                     line = line[:-1]
-                    print(line)
+                    # print(line)
                     if line == '#' + str(self.scene_number+1) or not line:
                         break
                     pos = line.split(' ')
-                    print(pos)
+                    # print(pos)
                     x1 = int(pos[0])
                     y1 = int(pos[1])
                     line = f.readline()

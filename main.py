@@ -8,7 +8,7 @@ clock = pygame.time.Clock()
 Voice = 1
 Usertype = 1
 Purpose = 0
-screen = 0
+screen = 1
 # 현재 스크린 위치 (이 값에 맞추어 스크린 띄우는 화면을 설정하고, 실행되는 함수를 설정한다
 # 0: 맨 처음 화면
 # 1: 첫 선택 화면
@@ -44,6 +44,12 @@ while not done:
 
     # 화면을 띄운다
 
+    if screen == 0:
+        # 임시 화면
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+
     if screen == 1:
         # 첫 화면
         for event in pygame.event.get():
@@ -51,7 +57,7 @@ while not done:
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 print("change screen")
-                screen = 1
+                screen = 2
 
     elif screen == 2:
         # 방문자 유형 선택 화면
@@ -69,18 +75,80 @@ while not done:
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
+                    button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
-                        screen += i
+                        button_check = True
+                        if i == 1:  # 학교 순회 선택
+                            screen = 0
+                        elif i == 2:  # 목적지 선택
+                            screen = 4
+                        else:  # 부가기능 선택
+                            screen = 0
+
+                    if button_check is True:
                         break
         pass
 
-    elif screen == 3:
-        # 목적 선택
+    elif screen == 4:
+        # S A 선택화면
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                i = 0
+                for button in now_screen.buttons:
+                    i += 1
+                    button_check = False
+                    if button.isClicked(event.pos[0], event.pos[1]) is True:
+                        button_check = True
+                        screen += i
+
+                    if button_check is True:
+                        break
         pass
+
+    elif screen == 5:
+        # S 중 선택화면: 강의실/실험실/기타
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                i = 0
+                for button in now_screen.buttons:
+                    i += 1
+                    button_check = False
+                    if button.isClicked(event.pos[0], event.pos[1]) is True:
+                        button_check = True
+                        screen += 1+i
+
+                    if button_check is True:
+                        break
+        pass
+
+    elif screen == 6:
+        # A 중 선택화면: 교무실/관리시설/학생시설
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                i = 0
+                for button in now_screen.buttons:
+                    i += 1
+                    button_check = False
+                    if button.isClicked(event.pos[0], event.pos[1]) is True:
+                        button_check = True
+                        screen += 3+i
+
+                    if button_check is True:
+                        break
+        pass
+
 
     else:
         # 돌아다니면서 설명할 때
