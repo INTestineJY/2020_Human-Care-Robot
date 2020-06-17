@@ -18,7 +18,9 @@ class Scene:
 
     def __init__(self, scene_number):
         self.scene_number = scene_number
-        self.scene_list = ['대지 1', '대지 2', '대지 3', '대지 4', '대지 5']
+        self.scene_list = []
+        for i in range(9):
+            self.scene_list.append('대지 '+str(i))
         image_name = "./image/test_image/"+self.scene_list[scene_number]+".png"
         self.sheet = pygame.image.load(image_name)
         self.buttons = []
