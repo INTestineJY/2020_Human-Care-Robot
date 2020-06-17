@@ -44,7 +44,7 @@ while not done:
 
     # 화면을 띄운다
 
-    if screen == 0:
+    if screen == 1:
         # 첫 화면
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # If user clicked close
@@ -53,8 +53,15 @@ while not done:
                 print("change screen")
                 screen = 1
 
-    elif screen == 1:
-        # 목소리/목적/다음화면 선택화면
+    elif screen == 2:
+        # 방문자 유형 선택 화면
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+
+    elif screen == 3:
+        # 이용 목적 선택
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
@@ -65,17 +72,6 @@ while not done:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         screen += i
                         break
-
-        # if screen1_check != 0:
-        # screen = screen1_check
-        # continue
-
-    elif screen == 2:
-        # 목소리 선택
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:  # If user clicked close
-                done = True
         pass
 
     elif screen == 3:
