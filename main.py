@@ -31,7 +31,7 @@ ourscreen = pygame.display.set_mode((width, height))
 
 screen_list = []
 
-for i in range(5):
+for i in range(13):
     example_screen = Scene(i)
     screen_list.append(example_screen)
 
@@ -64,6 +64,12 @@ while not done:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for button in now_screen.buttons:
+                    if button.isClicked(event.pos[0], event.pos[1]) is True:
+                        screen = 3
+
+        pass
 
     elif screen == 3:
         # 이용 목적 선택
@@ -123,7 +129,7 @@ while not done:
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
-                        screen += 1+i
+                        screen += 1 + i
 
                     if button_check is True:
                         break
@@ -143,7 +149,7 @@ while not done:
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
-                        screen += 3+i
+                        screen += 3 + i
 
                     if button_check is True:
                         break
