@@ -20,8 +20,8 @@ class Scene:
         self.scene_number = scene_number
         self.scene_list = []
         for i in range(13):
-            self.scene_list.append('대지 '+str(i))
-        image_name = "./image/test_image/"+self.scene_list[scene_number]+".png"
+            self.scene_list.append('대지 ' + str(i))
+        image_name = "./image/test_image/" + self.scene_list[scene_number] + ".png"
         self.sheet = pygame.image.load(image_name)
         self.buttons = []
         self.add_button()
@@ -33,20 +33,17 @@ class Scene:
         :return:
         """
         number = '#' + str(self.scene_number)
-
         f = open('screen_button.txt', 'r')
         while True:
             line = f.readline()
-            line = line[:-1] # 엔터키 없앰
+            line = line[:-1]  # 엔터키 없앰
             if line == number:
                 while True:
                     line = f.readline()
                     line = line[:-1]
-                    # print(line)
-                    if line == '#' + str(self.scene_number+1) or not line:
+                    if line == '#' + str(self.scene_number + 1) or line == "end":
                         break
                     pos = line.split(' ')
-                    # print(pos)
                     x1 = int(pos[0])
                     y1 = int(pos[1])
                     line = f.readline()
@@ -59,6 +56,5 @@ class Scene:
                     temporary_b = Button(x1, y1, x2, y2)
                     self.buttons.append(temporary_b)
 
-            if not line:
+            if line == "end":
                 break
-

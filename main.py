@@ -56,7 +56,6 @@ while not done:
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print("change screen")
                 screen = 2
 
     elif screen == 2:
@@ -105,6 +104,7 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 i = 0
                 for button in now_screen.buttons:
+                    print("check")
                     i += 1
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
