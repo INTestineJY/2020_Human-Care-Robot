@@ -27,6 +27,16 @@ list_purpose2 = []
 width = 1024
 height = 600
 
+back_button_x = 75
+back_button_y = height - 75
+
+
+def is_back_button(x, y):
+    if 0 <= x <= back_button_x and back_button_y <= y <= height:
+        return True
+    return False
+
+
 ourscreen = pygame.display.set_mode((width, height))
 
 screen_list = []
@@ -67,6 +77,8 @@ while not done:
                 for button in now_screen.buttons:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         screen = 3
+                    if is_back_button(event.pos[0], event.pos[1]) is True:
+                        screen = 1
 
         pass
 
@@ -77,6 +89,8 @@ while not done:
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if is_back_button(event.pos[0], event.pos[1]) is True:
+                    screen = 2
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
@@ -102,6 +116,8 @@ while not done:
                 done = True
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if is_back_button(event.pos[0], event.pos[1]) is True:
+                    screen = 3
                 i = 0
                 for button in now_screen.buttons:
                     print("check")
@@ -123,6 +139,8 @@ while not done:
                 done = True
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if is_back_button(event.pos[0], event.pos[1]) is True:
+                    screen = 4
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
@@ -143,6 +161,8 @@ while not done:
                 done = True
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if is_back_button(event.pos[0], event.pos[1]) is True:
+                    screen = 4
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
@@ -162,16 +182,21 @@ while not done:
                 done = True
 
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if is_back_button(event.pos[0], event.pos[1]) is True:
+                    if screen in [7, 8, 9]:
+                        screen = 5
+                    else:
+                        screen = 6
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         screen = 0
+                        button_check = True
 
                     if button_check is True:
                         break
-
 
     else:
         # 돌아다니면서 설명할 때
