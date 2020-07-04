@@ -1,6 +1,38 @@
 # coding=utf-8
-import pygame
+
+import rospy
+from std_msgs.msg import Int32, Bool, String
+
 from deokyongkim import *
+
+dest_list = ['', '']
+
+
+class RosNode:
+    def __init__(self):
+        self.pub1 = rospy.Publisher('stop', Bool, queue_size=10)
+        self.pub2 = rospy.Publisher('order', Int32, queue_size=10)
+        self.sub1 = rospy.Subscriber('visit', Int32, self.via)
+        self.sub2 = rospy.Subscriber('find_piv', String, self.stop)
+
+    # 경유지에 도착했을 때 안내해주는 함수
+    def via(self, data):
+        pass
+
+    # 정지 명령 발송
+    def stop(self):
+        self.pub1.publish(True)
+
+    # 출발 명령 발송
+    def go(self):
+        self.pub1.publish(False)
+
+    def destination(self, index):
+        self.pub2.publish(index)
+
+
+rospy.init_node("service_core", anonymous=True)
+messenger = RosNode()
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -10,11 +42,6 @@ Usertype = 1
 Purpose = 0
 screen = 1
 # 현재 스크린 위치 (이 값에 맞추어 스크린 띄우는 화면을 설정하고, 실행되는 함수를 설정한다
-# 0: 맨 처음 화면
-# 1: 첫 선택 화면
-# 2: 목소리 선택 화면
-# 3: 사용자 유형 선택 화면
-# 10: 설명 화면
 
 list_purpose1 = []
 list_purpose2 = []
