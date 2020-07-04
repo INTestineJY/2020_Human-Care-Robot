@@ -30,13 +30,14 @@ def get_abstract_title(url):
     html = get_html(url)
     soup = bs4.BeautifulSoup(html, 'html.parser')
 
-    titles = soup.select('li.item')
+    titles = soup.select('li.item div.titWrap')
 
-    print("hohoho")
+    # print("hohoho")
 
     for i in titles:
-        print("DIDID")
-        print(i)
+        pass
+
+    return ['미세먼지 농도가 소프트콘택트렌즈 착용에 미치는 영향', '게임 장애/중독 연구에 대한 비판적 분석', '간호사의 태움 개념분석', '한국의 젠트리피케이션', '도시공간에서의 미세먼지 문제의 이해와 해결방안']
 
 
 def abstract_name(url):
@@ -111,7 +112,8 @@ def add_file(url):
     ff.close()
 
 
-get_abstract_title("https://www.dbpia.co.kr/subject/subjectList?subjCode=ND00")
+if __name__ == "__main__":
+    get_abstract_title("https://www.dbpia.co.kr/subject/subjectList?subjCode=ND00")
 
 
 #
