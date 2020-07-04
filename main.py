@@ -6,6 +6,7 @@ from std_msgs.msg import Int32, Bool, Int32MultiArray"""
 from deokyongkim import *
 from pygame.locals import *
 import ctypes
+from more_function_parsing import *
 
 dest_list = ["S509", "S511", "S512", "S513", "S514", "S515", "S517", "S501", "S502", "S503", "S504", "S505", "S506",
              "S507", "S508", "S510", "S516", "A501", "A502", "A503", "A504", "A506", "A508", "A509", "A505", "A507"]
@@ -79,6 +80,25 @@ def is_back_button(x, y):
     if back_button_x_1 <= x <= back_button_x_2 and back_button_y_1 <= y <= back_button_y_2:
         return True
     return False
+
+
+def show_news():
+    global done, screen
+    t = get_news()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:  # If user clicked close
+            done = True
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            # 여기서 화면을 바꾸어주세요
+            done = True
+
+    ourscreen.blit(screen_list[0].sheet, (0, 0))
+    font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
+    text = font.render(dest_list_sub[now_place_num], True, (84, 137, 222))
+    text_rect = text.get_rect()
+    text_rect.center = 1283, 626
+    ourscreen.blit(text, text_rect)
+
 
 
 ourscreen = pygame.display.set_mode((width, height))

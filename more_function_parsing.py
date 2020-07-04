@@ -47,7 +47,8 @@ def get_news():
 
         if 'https://' in news_url:
             news_insert_time, news_press = sub_get_insert_time_and_press(news_url)
-            print("%s | %s | %s | %s" % (news_title, news_press, news_insert_time, news_url))
+            # print("%s | %s | %s | %s" % (news_title, news_press, news_insert_time, news_url))
+            return news_title
 
 
 def get_html(url):
