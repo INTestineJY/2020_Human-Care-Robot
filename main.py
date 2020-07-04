@@ -4,6 +4,7 @@
 from std_msgs.msg import Int32, Bool, Int32MultiArray"""
 
 from deokyongkim import *
+from sub_button_funtions import *
 from pygame.locals import *
 import ctypes
 from more_function_parsing import *
@@ -70,17 +71,6 @@ screen = 1
 width = 1920
 height = 1080
 
-back_button_x_1 = 47
-back_button_y_1 = 980
-back_button_x_2 = 118
-back_button_y_2 = 1052
-
-
-def is_back_button(x, y):
-    if back_button_x_1 <= x <= back_button_x_2 and back_button_y_1 <= y <= back_button_y_2:
-        return True
-    return False
-
 
 ourscreen = pygame.display.set_mode((width, height))
 
@@ -98,6 +88,22 @@ user32 = ctypes.windll.user32
 screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
 pygame.display.set_mode(screensize, FULLSCREEN)
 
+
+def back_button(e):
+    global screen
+    if is_back_button(e.pos[0], e.pos[1]) is True:
+        screen_stack.pop()
+        print(screen_stack)
+        screen = screen_stack[-1]
+        return True
+
+
+def credit_button(e):
+    global screen
+    if is_credit_button(e.pos[0], e.pos[1]) is True:
+        pass
+
+
 while not done:
     now_screen = screen_list[screen]
     ourscreen.blit(now_screen.sheet, (0, 0))
@@ -110,10 +116,7 @@ while not done:
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if is_back_button(event.pos[0], event.pos[1]) is True:
-                    screen_stack.pop()
-                    print(screen_stack)
-                    screen = screen_stack[-1]
+                back_button(event)
 
     elif screen == 1:
         # 첫 화면
@@ -123,6 +126,7 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 screen_stack.append(2)
                 print(screen_stack)
+                print(event.pos[0], event.pos[1])
                 screen = 2
 
     elif screen == 2:
@@ -136,10 +140,7 @@ while not done:
                         screen_stack.append(3)
                         print(screen_stack)
                         screen = 3
-                if is_back_button(event.pos[0], event.pos[1]) is True:
-                    screen_stack.pop()
-                    print(screen_stack)
-                    screen = screen_stack[-1]
+                back_button(event)
 
         pass
 
@@ -150,10 +151,7 @@ while not done:
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if is_back_button(event.pos[0], event.pos[1]) is True:
-                    screen_stack.pop()
-                    print(screen_stack)
-                    screen = screen_stack[-1]
+                back_button(event)
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
@@ -185,10 +183,7 @@ while not done:
                 done = True
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if is_back_button(event.pos[0], event.pos[1]) is True:
-                    screen_stack.pop()
-                    print(screen_stack)
-                    screen = screen_stack[-1]
+                back_button(event)
                 i = 0
                 for button in now_screen.buttons:
                     print("check")
@@ -212,10 +207,7 @@ while not done:
                 done = True
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if is_back_button(event.pos[0], event.pos[1]) is True:
-                    screen_stack.pop()
-                    print(screen_stack)
-                    screen = screen_stack[-1]
+                back_button(event)
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
@@ -238,10 +230,7 @@ while not done:
                 done = True
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if is_back_button(event.pos[0], event.pos[1]) is True:
-                    screen_stack.pop()
-                    print(screen_stack)
-                    screen = screen_stack[-1]
+                back_button(event)
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
@@ -263,10 +252,7 @@ while not done:
                 done = True
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if is_back_button(event.pos[0], event.pos[1]) is True:
-                    screen_stack.pop()
-                    print(screen_stack)
-                    screen = screen_stack[-1]
+                back_button(event)
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
@@ -313,11 +299,7 @@ while not done:
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if is_back_button(event.pos[0], event.pos[1]) is True:
-                    screen_stack.pop()
-                    print(screen_stack)
-                    screen = screen_stack[-1]
-                else:
+                if back_button(event) is not True:
                     # messenger.destination(destination_num)
                     screen_stack.append(0)
                     print(screen_stack)
@@ -328,11 +310,7 @@ while not done:
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if is_back_button(event.pos[0], event.pos[1]) is True:
-                    screen_stack.pop()
-                    print(screen_stack)
-                    screen = screen_stack[-1]
-                else:
+                if back_button(event) is not True:
                     screen_stack.append(0)
                     print(screen_stack)
                     screen = 0
