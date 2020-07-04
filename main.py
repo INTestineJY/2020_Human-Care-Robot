@@ -24,8 +24,8 @@ list_purpose2 = []
 # Purpose 2 는 학교 순회 (순회하는 곳의 순서에 맞춰 리스트에 미리 넣어두기)
 
 
-width = 1024
-height = 600
+width = 1920
+height = 1080
 
 back_button_x = 75
 back_button_y = height - 75
@@ -41,7 +41,7 @@ ourscreen = pygame.display.set_mode((width, height))
 
 screen_list = []
 
-for i in range(13):
+for i in range(15):
     example_screen = Scene(i)
     screen_list.append(example_screen)
 
