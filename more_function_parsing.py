@@ -30,7 +30,7 @@ def get_abstract_title(url):
     html = get_html(url)
     soup = bs4.BeautifulSoup(html, 'html.parser')
 
-    titles = soup.select('h5')
+    titles = soup.select('li.item')
 
     print("hohoho")
 
