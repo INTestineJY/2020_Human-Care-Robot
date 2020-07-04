@@ -27,12 +27,14 @@ list_purpose2 = []
 width = 1920
 height = 1080
 
-back_button_x = 75
-back_button_y = height - 75
+back_button_x_1 = 47
+back_button_y_1 = 980
+back_button_x_2 = 118
+back_button_y_2 = 1052
 
 
 def is_back_button(x, y):
-    if 0 <= x <= back_button_x and back_button_y <= y <= height:
+    if back_button_x_1 <= x <= back_button_x_2 and back_button_y_1 <= y <= back_button_y_2:
         return True
     return False
 
@@ -192,7 +194,7 @@ while not done:
                     i += 1
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
-                        screen = 0
+                        screen = 13
                         button_check = True
 
                     if button_check is True:
