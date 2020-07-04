@@ -1,7 +1,7 @@
 # coding=utf-8
 
-"""import rospy
-from std_msgs.msg import Int32, Bool, String"""
+import rospy
+from std_msgs.msg import Int32, Bool, Int32MultiArray
 
 from deokyongkim import *
 
@@ -12,12 +12,13 @@ destination_num = -1
 Screen_ClassButton_List = [71, 72, 73, 74, 75, 76, 77, 81, 82, 83, 91, 92, 93, 94, 95, 96, 97, 101, 111, 112, 113, 114,
                            115, 116, 121, 122]
 
-"""class RosNode:
+
+class RosNode:
     def __init__(self):
         self.pub1 = rospy.Publisher('stop', Bool, queue_size=10)
         self.pub2 = rospy.Publisher('order', Int32, queue_size=10)
         self.sub1 = rospy.Subscriber('visit', Int32, self.via)
-        self.sub2 = rospy.Subscriber('find_piv', String, self.stop)
+        self.sub2 = rospy.Subscriber('pivot_pos', Int32MultiArray, self.user_recognize)
 
     # 경유지에 도착했을 때 안내해주는 함수
     def via(self, data):
@@ -31,12 +32,23 @@ Screen_ClassButton_List = [71, 72, 73, 74, 75, 76, 77, 81, 82, 83, 91, 92, 93, 9
     def go(self):
         self.pub1.publish(False)
 
+    # 목적지 정보 전송
     def destination(self, index):
         self.pub2.publish(index)
 
+    # 사용자를 인식할 수 없을 때
+    def user_recognize(self, data):
+        # 사용자의 앞뒤 위치가 범위를 벗어났을 때
+        if data[0] == 1:
+            pass
+        # 사용자의 좌우 위치가 범위를 벗어났을 때
+        if data[1] == 1:
+            pass
+        self.stop()
 
-rospy.init_node("service_core", anonymous=True)
-messenger = RosNode()"""
+
+rospy.init_node("messenger", anonymous=True)
+messenger = RosNode()
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -238,6 +250,7 @@ while not done:
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
+                messenger.destination(destination_num)
                 screen = 0
 
     elif screen == 14:
