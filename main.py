@@ -8,17 +8,18 @@ from pygame.locals import *
 import ctypes
 from more_function_parsing import *
 
-dest_list = ["", "S509", "S511", "S512", "S513", "S514", "S515", "S517", "S501", "S502", "S503", "S504", "S505", "S506",
+dest_list = ["S509", "S511", "S512", "S513", "S514", "S515", "S517", "S501", "S502", "S503", "S504", "S505", "S506",
              "S507", "S508", "S510", "S516", "A501", "A502", "A503", "A504", "A506", "A508", "A509", "A505", "A507"]
-dest_list_sub = ["", "지구과학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실",
-                 "융합창작실1", "융합창작실2", "공학실험실", "고체지구과학실", "지구과학실험실", "유체지구과학실", "천체관측실",
-                 "기구보관실", "교원연구실", "협의회실", "알고리즘 학습실", "미술실 1", "미술실 2", "그래픽 디자인실",
-                 "미술실 3", "도예실", "레이저 커팅기실", "미술 비품실", "플로터실"]
+dest_list_sub = ["지구과학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "융합창작실1", "융합창작실2", "공학실험실",
+                 "고체지구과학실",
+                 "지구과학실험실", "유체지구과학실", "천체관측실", "기구보관실", "교원연구실", "협의회실""알고리즘 학습실", "미술실 1", "미술실 2", "그래픽 디자인실",
+                 "미술실 3",
+                 "도예실", "레이저 커팅기실", "미술 비품실", "플로터실"]
 destination_num = -1
-now_place_num = 10
+now_place_num = 9
 
-Screen_ClassButton_List = [1, 71, 72, 73, 74, 75, 76, 77, 81, 82, 83, 91, 92, 93, 94, 95, 96, 97, 101, 111, 112, 113,
-                           114, 115, 116, 121, 122]
+Screen_ClassButton_List = [1, 71, 72, 73, 74, 75, 76, 77, 81, 82, 83, 91, 92, 93, 94, 95, 96, 97, 101, 111, 112, 113, 114,
+                           115, 116, 121, 122]
 
 """class RosNode:
     def __init__(self):
@@ -81,24 +82,6 @@ def is_back_button(x, y):
     return False
 
 
-def show_news():
-    global done, screen
-    t = get_news()
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:  # If user clicked close
-            done = True
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            # 여기서 화면을 바꾸어주세요
-            done = True
-
-    ourscreen.blit(screen_list[0].sheet, (0, 0))
-    font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
-    text = font.render(dest_list_sub[now_place_num], True, (84, 137, 222))
-    text_rect = text.get_rect()
-    text_rect.center = 1283, 626
-    ourscreen.blit(text, text_rect)
-
-
 ourscreen = pygame.display.set_mode((width, height))
 
 screen_list = []
@@ -129,6 +112,7 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
+                    print(screen_stack)
                     screen = screen_stack[-1]
 
     elif screen == 1:
@@ -138,6 +122,7 @@ while not done:
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 screen_stack.append(2)
+                print(screen_stack)
                 screen = 2
 
     elif screen == 2:
@@ -149,9 +134,11 @@ while not done:
                 for button in now_screen.buttons:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         screen_stack.append(3)
+                        print(screen_stack)
                         screen = 3
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
+                    print(screen_stack)
                     screen = screen_stack[-1]
 
         pass
@@ -165,6 +152,7 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
+                    print(screen_stack)
                     screen = screen_stack[-1]
                 i = 0
                 for button in now_screen.buttons:
@@ -174,12 +162,15 @@ while not done:
                         button_check = True
                         if i == 1:  # 학교 순회 선택
                             screen_stack.append(0)
+                            print(screen_stack)
                             screen = 0
                         elif i == 2:  # 목적지 선택
                             screen_stack.append(4)
+                            print(screen_stack)
                             screen = 4
                         else:  # 부가기능 선택
                             screen_stack.append(14)
+                            print(screen_stack)
                             screen = 14
 
                     if button_check is True:
@@ -196,6 +187,7 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
+                    print(screen_stack)
                     screen = screen_stack[-1]
                 i = 0
                 for button in now_screen.buttons:
@@ -205,6 +197,7 @@ while not done:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
                         screen_stack.append(screen + i)
+                        print(screen_stack)
                         screen += i
 
                     if button_check is True:
@@ -221,6 +214,7 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
+                    print(screen_stack)
                     screen = screen_stack[-1]
                 i = 0
                 for button in now_screen.buttons:
@@ -229,6 +223,7 @@ while not done:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
                         screen_stack.append(screen + i + 1)
+                        print(screen_stack)
                         screen += 1 + i
 
                     if button_check is True:
@@ -245,6 +240,7 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
+                    print(screen_stack)
                     screen = screen_stack[-1]
                 i = 0
                 for button in now_screen.buttons:
@@ -253,6 +249,7 @@ while not done:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
                         screen_stack.append(screen + i + 3)
+                        print(screen_stack)
                         screen += 3 + i
 
                     if button_check is True:
@@ -268,6 +265,7 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
+                    print(screen_stack)
                     screen = screen_stack[-1]
                 i = 0
                 for button in now_screen.buttons:
@@ -280,32 +278,33 @@ while not done:
                         Screen_ClassButton_Num = 10 * screen + i
                         destination_num = Screen_ClassButton_List.index(Screen_ClassButton_Num)
                         screen_stack.append(13)
+                        print(screen_stack)
                         screen = 13
                         break
 
     elif screen == 13:
         # 목적지
         font = pygame.font.Font('./Image/NanumSquareB.ttf', 88)
-        text = font.render(dest_list[now_place_num], True, (84, 137, 222))
+        text = font.render(dest_list[destination_num], True, (84, 137, 222))
         text_rect = text.get_rect()
         text_rect.center = 631, 526
         ourscreen.blit(text, text_rect)
 
         font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
-        text = font.render(dest_list_sub[now_place_num], True, (84, 137, 222))
+        text = font.render(dest_list_sub[destination_num], True, (84, 137, 222))
         text_rect = text.get_rect()
         text_rect.center = 631, 626
         ourscreen.blit(text, text_rect)
 
         # 현재 위치
         font = pygame.font.Font('./Image/NanumSquareB.ttf', 88)
-        text = font.render(dest_list[destination_num], True, (84, 137, 222))
+        text = font.render(dest_list[now_place_num], True, (84, 137, 222))
         text_rect = text.get_rect()
         text_rect.center = 1283, 526
         ourscreen.blit(text, text_rect)
 
         font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
-        text = font.render(dest_list_sub[destination_num], True, (84, 137, 222))
+        text = font.render(dest_list_sub[now_place_num], True, (84, 137, 222))
         text_rect = text.get_rect()
         text_rect.center = 1283, 626
         ourscreen.blit(text, text_rect)
@@ -316,10 +315,12 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
+                    print(screen_stack)
                     screen = screen_stack[-1]
                 else:
                     # messenger.destination(destination_num)
                     screen_stack.append(0)
+                    print(screen_stack)
                     screen = 0
 
     elif screen == 14:
@@ -329,9 +330,11 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
+                    print(screen_stack)
                     screen = screen_stack[-1]
                 else:
                     screen_stack.append(0)
+                    print(screen_stack)
                     screen = 0
 
     else:
