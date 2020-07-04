@@ -4,13 +4,18 @@
 from std_msgs.msg import Int32, Bool, Int32MultiArray"""
 
 from deokyongkim import *
+from pygame.locals import *
+import ctypes
 
 dest_list = ["S509", "S511", "S512", "S513", "S514", "S515", "S517", "S501", "S502", "S503", "S504", "S505", "S506",
              "S507", "S508", "S510", "S516", "A501", "A502", "A503", "A504", "A506", "A508", "A509", "A505", "A507"]
-dest_list_sub = ["지구과학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실""융합창작실1", "융합창작실2", "공학실험실", "고체지구과학실",
-                 "지구과학실험실", "유체지구과학실", "천체관측실", "기구보관실", "교원연구실", "협의회실""알고리즘 학습실", "미술실 1", "미술실 2", "그래픽 디자인실", "미술실 3",
+dest_list_sub = ["지구과학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "융합창작실1", "융합창작실2", "공학실험실",
+                 "고체지구과학실",
+                 "지구과학실험실", "유체지구과학실", "천체관측실", "기구보관실", "교원연구실", "협의회실""알고리즘 학습실", "미술실 1", "미술실 2", "그래픽 디자인실",
+                 "미술실 3",
                  "도예실", "레이저 커팅기실", "미술 비품실", "플로터실"]
 destination_num = -1
+now_place_num = 9
 
 Screen_ClassButton_List = [71, 72, 73, 74, 75, 76, 77, 81, 82, 83, 91, 92, 93, 94, 95, 96, 97, 101, 111, 112, 113, 114,
                            115, 116, 121, 122]
@@ -87,8 +92,10 @@ for i in range(15):
 done = False
 
 while not done:
-    ourscreen.fill((10, 100, 100))
     now_screen = screen_list[screen]
+    user32 = ctypes.windll.user32
+    screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+    pygame.display.set_mode(screensize, FULLSCREEN)
     ourscreen.blit(now_screen.sheet, (0, 0))
 
     # 화면을 띄운다
@@ -240,9 +247,31 @@ while not done:
                         break
 
     elif screen == 13:
-        font = pygame.font.Font('./Image/NanumSquareB.ttf', 88)  # 폰트 설정
-        text = font.render(dest_list[destination_num], True, (84, 137, 222))  # 텍스트가 표시된 Surface 를 만듬
-        ourscreen.blit(text, (523, 473))
+        # 목적지
+        font = pygame.font.Font('./Image/NanumSquareB.ttf', 88)
+        text = font.render(dest_list[destination_num], True, (84, 137, 222))
+        text_rect = text.get_rect()
+        text_rect.center = 631, 526
+        ourscreen.blit(text, text_rect)
+
+        font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
+        text = font.render(dest_list_sub[destination_num], True, (84, 137, 222))
+        text_rect = text.get_rect()
+        text_rect.center = 631, 626
+        ourscreen.blit(text, text_rect)
+
+        # 현재 위치
+        font = pygame.font.Font('./Image/NanumSquareB.ttf', 88)
+        text = font.render(dest_list[now_place_num], True, (84, 137, 222))
+        text_rect = text.get_rect()
+        text_rect.center = 1283, 526
+        ourscreen.blit(text, text_rect)
+
+        font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
+        text = font.render(dest_list_sub[now_place_num], True, (84, 137, 222))
+        text_rect = text.get_rect()
+        text_rect.center = 1283, 626
+        ourscreen.blit(text, text_rect)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # If user clicked close
