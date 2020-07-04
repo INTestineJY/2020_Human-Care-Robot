@@ -113,8 +113,8 @@ def add_file(url):
 
 
 if __name__ == "__main__":
-    get_abstract_title("https://www.dbpia.co.kr/subject/subjectList?subjCode=ND00")
-
+    tmptmp = get_abstract_title("https://www.dbpia.co.kr/subject/subjectList?subjCode=ND00")
+    print(tmptmp)
 
 #
 # add_file("https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE09274444#none")
