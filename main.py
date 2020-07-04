@@ -1,6 +1,54 @@
 # coding=utf-8
-import pygame
+
+import rospy
+from std_msgs.msg import Int32, Bool, Int32MultiArray
+
 from deokyongkim import *
+
+dest_list = ["S509", "S511", "S512", "S513", "S514", "S515", "S517", "S501", "S502", "S503", "S504", "S505", "S506",
+             "S507", "S508", "S510", "S516", "A501", "A502", "A503", "A504", "A506", "A508", "A509", "A505", "A507"]
+destination_num = -1
+
+Screen_ClassButton_List = [71, 72, 73, 74, 75, 76, 77, 81, 82, 83, 91, 92, 93, 94, 95, 96, 97, 101, 111, 112, 113, 114,
+                           115, 116, 121, 122]
+
+
+class RosNode:
+    def __init__(self):
+        self.pub1 = rospy.Publisher('stop', Bool, queue_size=10)
+        self.pub2 = rospy.Publisher('order', Int32, queue_size=10)
+        self.sub1 = rospy.Subscriber('visit', Int32, self.via)
+        self.sub2 = rospy.Subscriber('pivot_pos', Int32MultiArray, self.user_recognize)
+
+    # 경유지에 도착했을 때 안내해주는 함수
+    def via(self, data):
+        pass
+
+    # 정지 명령 발송
+    def stop(self):
+        self.pub1.publish(True)
+
+    # 출발 명령 발송
+    def go(self):
+        self.pub1.publish(False)
+
+    # 목적지 정보 전송
+    def destination(self, index):
+        self.pub2.publish(index)
+
+    # 사용자를 인식할 수 없을 때
+    def user_recognize(self, data):
+        # 사용자의 앞뒤 위치가 범위를 벗어났을 때
+        if data[0] == 1:
+            pass
+        # 사용자의 좌우 위치가 범위를 벗어났을 때
+        if data[1] == 1:
+            pass
+        self.stop()
+
+
+rospy.init_node("messenger", anonymous=True)
+messenger = RosNode()
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -10,11 +58,6 @@ Usertype = 1
 Purpose = 0
 screen = 1
 # 현재 스크린 위치 (이 값에 맞추어 스크린 띄우는 화면을 설정하고, 실행되는 함수를 설정한다
-# 0: 맨 처음 화면
-# 1: 첫 선택 화면
-# 2: 목소리 선택 화면
-# 3: 사용자 유형 선택 화면
-# 10: 설명 화면
 
 list_purpose1 = []
 list_purpose2 = []
@@ -27,12 +70,14 @@ list_purpose2 = []
 width = 1920
 height = 1080
 
-back_button_x = 75
-back_button_y = height - 75
+back_button_x_1 = 47
+back_button_y_1 = 980
+back_button_x_2 = 118
+back_button_y_2 = 1052
 
 
 def is_back_button(x, y):
-    if 0 <= x <= back_button_x and back_button_y <= y <= height:
+    if back_button_x_1 <= x <= back_button_x_2 and back_button_y_1 <= y <= back_button_y_2:
         return True
     return False
 
@@ -102,7 +147,7 @@ while not done:
                         elif i == 2:  # 목적지 선택
                             screen = 4
                         else:  # 부가기능 선택
-                            screen = 0
+                            screen = 14
 
                     if button_check is True:
                         break
@@ -192,11 +237,28 @@ while not done:
                     i += 1
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
-                        screen = 0
                         button_check = True
 
                     if button_check is True:
+                        Screen_ClassButton_Num = 10*screen + i
+                        destination_num = Screen_ClassButton_List.index(Screen_ClassButton_Num)
+                        screen = 13
                         break
+
+    elif screen == 13:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                messenger.destination(destination_num)
+                screen = 0
+
+    elif screen == 14:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                screen = 0
 
     else:
         # 돌아다니면서 설명할 때
