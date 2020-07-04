@@ -15,7 +15,7 @@ dest_list_sub = ["", "지구과학 강의실", "수학 강의실", "수학 강�
                  "기구보관실", "교원연구실", "협의회실", "알고리즘 학습실", "미술실 1", "미술실 2", "그래픽 디자인실",
                  "미술실 3", "도예실", "레이저 커팅기실", "미술 비품실", "플로터실"]
 destination_num = -1
-now_place_num = 9
+now_place_num = 10
 
 Screen_ClassButton_List = [1, 71, 72, 73, 74, 75, 76, 77, 81, 82, 83, 91, 92, 93, 94, 95, 96, 97, 101, 111, 112, 113,
                            114, 115, 116, 121, 122]
@@ -129,7 +129,6 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
-                    print(screen_stack)
                     screen = screen_stack[-1]
 
     elif screen == 1:
@@ -139,7 +138,6 @@ while not done:
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 screen_stack.append(2)
-                print(screen_stack)
                 screen = 2
 
     elif screen == 2:
@@ -151,11 +149,9 @@ while not done:
                 for button in now_screen.buttons:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         screen_stack.append(3)
-                        print(screen_stack)
                         screen = 3
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
-                    print(screen_stack)
                     screen = screen_stack[-1]
 
         pass
@@ -169,7 +165,6 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
-                    print(screen_stack)
                     screen = screen_stack[-1]
                 i = 0
                 for button in now_screen.buttons:
@@ -179,15 +174,12 @@ while not done:
                         button_check = True
                         if i == 1:  # 학교 순회 선택
                             screen_stack.append(0)
-                            print(screen_stack)
                             screen = 0
                         elif i == 2:  # 목적지 선택
                             screen_stack.append(4)
-                            print(screen_stack)
                             screen = 4
                         else:  # 부가기능 선택
                             screen_stack.append(14)
-                            print(screen_stack)
                             screen = 14
 
                     if button_check is True:
@@ -204,7 +196,6 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
-                    print(screen_stack)
                     screen = screen_stack[-1]
                 i = 0
                 for button in now_screen.buttons:
@@ -214,7 +205,6 @@ while not done:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
                         screen_stack.append(screen + i)
-                        print(screen_stack)
                         screen += i
 
                     if button_check is True:
@@ -231,7 +221,6 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
-                    print(screen_stack)
                     screen = screen_stack[-1]
                 i = 0
                 for button in now_screen.buttons:
@@ -240,7 +229,6 @@ while not done:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
                         screen_stack.append(screen + i + 1)
-                        print(screen_stack)
                         screen += 1 + i
 
                     if button_check is True:
@@ -257,7 +245,6 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
-                    print(screen_stack)
                     screen = screen_stack[-1]
                 i = 0
                 for button in now_screen.buttons:
@@ -266,7 +253,6 @@ while not done:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
                         screen_stack.append(screen + i + 3)
-                        print(screen_stack)
                         screen += 3 + i
 
                     if button_check is True:
@@ -282,7 +268,6 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
-                    print(screen_stack)
                     screen = screen_stack[-1]
                 i = 0
                 for button in now_screen.buttons:
@@ -295,7 +280,6 @@ while not done:
                         Screen_ClassButton_Num = 10 * screen + i
                         destination_num = Screen_ClassButton_List.index(Screen_ClassButton_Num)
                         screen_stack.append(13)
-                        print(screen_stack)
                         screen = 13
                         break
 
@@ -332,12 +316,10 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
-                    print(screen_stack)
                     screen = screen_stack[-1]
                 else:
                     # messenger.destination(destination_num)
                     screen_stack.append(0)
-                    print(screen_stack)
                     screen = 0
 
     elif screen == 14:
@@ -347,11 +329,9 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if is_back_button(event.pos[0], event.pos[1]) is True:
                     screen_stack.pop()
-                    print(screen_stack)
                     screen = screen_stack[-1]
                 else:
                     screen_stack.append(0)
-                    print(screen_stack)
                     screen = 0
 
     else:
