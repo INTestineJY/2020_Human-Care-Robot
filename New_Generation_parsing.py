@@ -32,12 +32,30 @@ hmm = "https://www.dbpia.co.kr/subject/subjectList?subjCode=ND00"
 
 
 def get_html(url):
+    tmp = ""
     f = urlopen(url)
-    print(f.read())
+    lines = f.readlines()
+    print(len(lines))
+    for i in lines:
+        tmp += str(i) + " "
+    return tmp
 
 
-def giveMeTextBetween(url):
-    get_html(url)
+def giveMeTextBetween(l, start, end):
+    s = l.index(start)
+    if s is -1:
+        return ""
+    s += len(start)
+
+    e = l.index(end)
+
+    return l[s:e]
 
 
-get_html(hmm)
+def get_title(url):
+    html = get_html(url)
+    ab = giveMeTextBetween(html, '<a href="#none" onclick="javascript:fnGoNodeDetail(', '</a>')
+    print(ab)
+
+
+get_title('https://www.dbpia.co.kr/subject/subjectList?subjCode=ND00')
