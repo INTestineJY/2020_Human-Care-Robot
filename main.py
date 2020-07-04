@@ -1,14 +1,18 @@
 # coding=utf-8
 
-import rospy
-from std_msgs.msg import Int32, Bool, String
+"""import rospy
+from std_msgs.msg import Int32, Bool, String"""
 
 from deokyongkim import *
 
-dest_list = ['', '']
+dest_list = ["S509", "S511", "S512", "S513", "S514", "S515", "S517", "S501", "S502", "S503", "S504", "S505", "S506",
+             "S507", "S508", "S510", "S516", "A501", "A502", "A503", "A504", "A506", "A508", "A509", "A505", "A507"]
+destination_num = -1
 
+Screen_ClassButton_List = [71, 72, 73, 74, 75, 76, 77, 81, 82, 83, 91, 92, 93, 94, 95, 96, 97, 101, 111, 112, 113, 114,
+                           115, 116, 121, 122]
 
-class RosNode:
+"""class RosNode:
     def __init__(self):
         self.pub1 = rospy.Publisher('stop', Bool, queue_size=10)
         self.pub2 = rospy.Publisher('order', Int32, queue_size=10)
@@ -32,7 +36,7 @@ class RosNode:
 
 
 rospy.init_node("service_core", anonymous=True)
-messenger = RosNode()
+messenger = RosNode()"""
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -131,7 +135,7 @@ while not done:
                         elif i == 2:  # 목적지 선택
                             screen = 4
                         else:  # 부가기능 선택
-                            screen = 0
+                            screen = 14
 
                     if button_check is True:
                         break
@@ -221,11 +225,27 @@ while not done:
                     i += 1
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
-                        screen = 13
                         button_check = True
 
                     if button_check is True:
+                        Screen_ClassButton_Num = 10*screen + i
+                        destination_num = Screen_ClassButton_List.index(Screen_ClassButton_Num)
+                        screen = 13
                         break
+
+    elif screen == 13:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                screen = 0
+
+    elif screen == 14:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                screen = 0
 
     else:
         # 돌아다니면서 설명할 때
