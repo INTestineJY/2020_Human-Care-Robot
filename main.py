@@ -101,9 +101,9 @@ def back_button(e):
 
 
 def credit_button(e):
-    global screen
+    global screen, screen_stack
     if is_credit_button(e.pos[0], e.pos[1]) is True:
-        screen = -1
+        screen_stack, screen = next_screen_stack(screen_stack, -1)
         return True
 
 
