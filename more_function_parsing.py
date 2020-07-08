@@ -36,9 +36,12 @@ def sub_get_insert_time_and_press(url):
 def get_news():
     html = get_html('https://news.naver.com')
     soup = bs4.BeautifulSoup(html, 'html.parser')
+    titles = []
 
     # <div class='main_component'> 안에 있는, <li> 안에 있는 <a> 를 모두 검색하여 List 형식으로 반환한다.
     news_main = soup.select('div.main_component li a')
+
+    chk = 0
 
     for i in news_main:
         # ex) <a href="https://news.naver.com/main/..."><strong>CPU 가격 30% 급등…중소 PC업체들 '비상'</strong></a>
@@ -48,7 +51,11 @@ def get_news():
         if 'https://' in news_url:
             news_insert_time, news_press = sub_get_insert_time_and_press(news_url)
             # print("%s | %s | %s | %s" % (news_title, news_press, news_insert_time, news_url))
-            return news_title
+            titles.append(news_title)
+            print("did")
+            chk += 1
+            if chk == 3:
+                return titles
 
 
 def get_html(url):
@@ -57,8 +64,17 @@ def get_html(url):
     :param url: parsing target web url
     :return: html tag
     """
-    response = requests.get(url)
-    response.raise_for_status()
+    did = True
+
+    while did:
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            did = False
+        except Exception:
+            print("ERROR")
+            did = True
+
 
     return response.text
 
@@ -163,7 +179,11 @@ def add_file(url):
 if __name__ == "__main__":
     # tmptmp = get_abstract_title("https://www.dbpia.co.kr/subject/subjectList?subjCode=ND00")
     # print(tmptmp)
-    get_news()
+    text = get_news()
+
+    for i in text:
+        print(i)
+    # print(text)
 
 #
 # add_file("https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE09274444#none")

@@ -331,6 +331,25 @@ while not done:
                     print(screen_stack)
                     screen = 0
 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                back_button(event)
+                i = 0
+                for button in now_screen.buttons:
+                    i += 1
+                    button_check = False
+                    if button.isClicked(event.pos[0], event.pos[1]) is True:
+                        button_check = True
+
+                    if button_check is True:
+                        Screen_ClassButton_Num = 10 * screen + i
+                        destination_num = Screen_ClassButton_List.index(Screen_ClassButton_Num)
+                        screen_stack.append(13)
+                        print(screen_stack)
+                        screen = 13
+                        break
+
+
+
     else:
         # 돌아다니면서 설명할 때
         pass
