@@ -20,6 +20,7 @@ dest_list_sub = ["", "지구과학 강의실", "수학 강의실", "수학 강�
                  "도예실", "레이저 커팅기실", "미술 비품실", "플로터실", ""]
 destination_num = -1
 now_place_num = 10
+robot_now_place_num = 10
 
 Screen_ClassButton_List = [1, 71, 72, 73, 74, 75, 76, 77, 81, 82, 83, 91, 92, 93, 94, 95, 96, 97, 101, 111, 112, 113,
                            114,
@@ -111,6 +112,7 @@ def write_subtitle(subtitle_num):
     text_rect.center = 960, 850
     ourscreen.blit(text, text_rect)
 
+
 """class RosNode:
     def __init__(self):
         self.pub1 = rospy.Publisher('stop', Bool, queue_size=10)
@@ -120,6 +122,7 @@ def write_subtitle(subtitle_num):
 
     # 경유지에 도착했을 때 안내해주는 함수
     def via(self, data):
+        robot_now_place_num = data
         pass
 
     # 정지 명령 발송
@@ -482,6 +485,12 @@ while not done:
             image = pygame.image.load(image_name)
             image = pygame.transform.scale(image, (250, 100))
             ourscreen.blit(image, (839, 513))
+
+            if now_place_num == destination_num:
+                # messenger.pub1.publish(1)
+                pass
+            elif robot_now_place_num != now_place_num and not pygame.mixer.music.get_busy():
+                now_place_num = robot_now_place_num
 
     elif screen == 14:
         for event in pygame.event.get():
