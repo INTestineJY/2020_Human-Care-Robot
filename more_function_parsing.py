@@ -54,7 +54,7 @@ def get_news():
             titles.append(news_title)
             print("did")
             chk += 1
-            if chk == 3:
+            if chk == 5:
                 return titles
 
 

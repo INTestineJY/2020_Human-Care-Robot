@@ -422,11 +422,6 @@ while not done:
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if back_button(event) is not True and credit_button(event) is not True:
-                    screen_stack.append(0)
-                    print(screen_stack)
-                    screen = 0
-            if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
 
