@@ -11,19 +11,19 @@ import ctypes
 from more_function_parsing import *
 
 dest_list = ["", "S509", "S511", "S512", "S513", "S514", "S515", "S517", "S501", "S502", "S503", "S504", "S505", "S506",
-             "S507", "S508", "S510", "S516", "A501", "A502", "A503", "A504", "A506", "A508", "A509", "A505", "A507"]
+             "S507", "S508", "S510", "S516", "A501", "A502", "A503", "A504", "A506", "A508", "A509", "A505", "A507", ""]
 dest_list_sub = ["", "지구과학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "융합창작실1", "융합창작실2",
                  "공학실험실",
                  "고체지구과학실",
                  "지구과학실험실", "유체지구과학실", "천체관측실", "기구보관실", "교원연구실", "협의회실", "알고리즘 학습실", "미술실 1", "미술실 2", "그래픽 디자인실",
                  "미술실 3",
-                 "도예실", "레이저 커팅기실", "미술 비품실", "플로터실"]
+                 "도예실", "레이저 커팅기실", "미술 비품실", "플로터실", ""]
 destination_num = -1
 now_place_num = 10
 
 Screen_ClassButton_List = [1, 71, 72, 73, 74, 75, 76, 77, 81, 82, 83, 91, 92, 93, 94, 95, 96, 97, 101, 111, 112, 113,
                            114,
-                           115, 116, 121, 122]
+                           115, 116, 121, 122, 141]
 
 """class RosNode:
     def __init__(self):
@@ -353,15 +353,11 @@ while not done:
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if back_button(event) is not True and credit_button(event) is not True:
-                    screen_stack.append(0)
-                    print(screen_stack)
-                    screen = 0
-            if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
                 i = 0
                 for button in now_screen.buttons:
+                    print("eha;lsdkfj")
                     i += 1
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
