@@ -121,7 +121,7 @@ def new_function():
     return hmm
 
 
-title = new_function()
+title = get_news()
 
 
 while not done:
@@ -372,20 +372,18 @@ while not done:
     elif screen == 16:
         ####code here
 
-        font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
-        text = font.render(title, True, (0, 0, 0))
-        text_rect = text.get_rect()
-        text_rect.center = 295, 217
-        ourscreen.blit(text, text_rect)
+        asdf = 0
+        for i in title:
+            font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
+            text = font.render(i, True, (0, 0, 0))
+            text_rect = text.get_rect()
+            text_rect.center = 960, 300 + asdf
+            ourscreen.blit(text, text_rect)
+            asdf += 100
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if back_button(event) is not True and credit_button(event) is not True:
-                    screen_stack.append(0)
-                    print(screen_stack)
-                    screen = 0
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
