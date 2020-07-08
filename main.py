@@ -114,7 +114,7 @@ def new_function():
     ttt = get_news()
     hmm = ""
     for some in ttt:
-        if len(some) >= 8:
+        if len(some) >= 20:
             hmm += some[0:8] + "..." + "\n"
         else:
             hmm += some + "\n"
@@ -373,9 +373,9 @@ while not done:
         ####code here
 
         font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
-        text = font.render(title, True, (84, 137, 222))
+        text = font.render(title, True, (0, 0, 0))
         text_rect = text.get_rect()
-        text_rect.center = 631, 626
+        text_rect.center = 295, 217
         ourscreen.blit(text, text_rect)
 
         for event in pygame.event.get():
