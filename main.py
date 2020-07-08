@@ -6,6 +6,7 @@ from std_msgs.msg import Int32, Bool, Int32MultiArray"""
 from deokyongkim import *
 from sub_button_funtions import *
 from pygame.locals import *
+from more_function_parsing import get_news
 import ctypes
 from more_function_parsing import *
 
@@ -79,7 +80,7 @@ screen_list = []
 
 screen_stack = [1]
 
-for i in range(16):
+for i in range(17):
     example_screen = Scene(i)
     screen_list.append(example_screen)
 
@@ -107,6 +108,21 @@ def credit_button(e):
 
 
 count_frame = 0
+
+
+def new_function():
+    ttt = get_news()
+    hmm = ""
+    for some in ttt:
+        if len(some) >= 8:
+            hmm += some[0:8] + "..." + "\n"
+        else:
+            hmm += some + "\n"
+    return hmm
+
+
+title = new_function()
+
 
 while not done:
     if screen == -1:
@@ -350,12 +366,29 @@ while not done:
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
-                        screen_stack.append(screen + i + 3)
+                        screen_stack.append(16)
                         print(screen_stack)
-                        screen += 3 + i
+                        screen = 16
 
                     if button_check is True:
                         break
+
+    elif screen == 16:
+        ####code here
+        text = font.render(title, True, (0, 0, 0))  # 텍스트가 표시된 Surface 를 만듬
+        ourscreen.blit(text, (870, 20))  # 화면에 표시
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # If user clicked close
+                done = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if back_button(event) is not True and credit_button(event) is not True:
+                    screen_stack.append(0)
+                    print(screen_stack)
+                    screen = 0
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                back_button(event)
+                credit_button(event)
 
     else:
         # 돌아다니면서 설명할 때
