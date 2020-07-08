@@ -123,6 +123,14 @@ def new_function():
 
 title = get_news()
 
+
+def play_audio():
+    pygame.mixer.music.load('./audio/test.mp3')
+    pygame.mixer.music.play()
+
+
+save_screen_stack = 0
+
 while not done:
     if screen == -1:
         image_name = "./image/test_image/대지 100.png"
@@ -132,6 +140,10 @@ while not done:
         now_screen = screen_list[screen]
         ourscreen.blit(now_screen.sheet, (0, 0))
     # 화면을 띄운다
+
+    if save_screen_stack != len(screen_stack):
+        save_screen_stack = len(screen_stack)
+        play_audio()
 
     if screen == -1:
         for event in pygame.event.get():
