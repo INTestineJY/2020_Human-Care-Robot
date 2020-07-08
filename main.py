@@ -55,7 +55,8 @@ subtitle_list = ["세종과학예술영재학교에 오신 것을 진심으로 �
                  "목적지를 선택해주세요.",
                  "S동 강의실은 지구과학 강의실인 S509, 수학 강의실인 S511, S512, S513, S514, S515, S517이 있습니다.",
                  "목적지를 선택해주세요.",
-                 "S동 공학실은 융합창작실인 S501, S502, 공학실험실인 S503이 있습니다.",
+                 "S동 공학실은 융합창작실인 S501, S502,",
+                 "공학실험실인 S503이 있습니다.",
                  "S동의 기타 시설은 고체지구과학실인 S504, 지구과학실험실인 S505, 유체지구과학실인 S506, 천체관측실인 S507, 기구보관실인 S508, 교원연구실인 S510, 협의회실인 S516이 있습니다.",
                  "A동에는 컴퓨터실, 미술실, 기타시설이 있습니다.",
                  "A동의 컴퓨터실은 알고리즘 실습실 A501이 있습니다.",
@@ -99,6 +100,16 @@ subtitle_list = ["세종과학예술영재학교에 오신 것을 진심으로 �
                  "현재 위치는 수학 강의실 S517입니다.",
                  "목적지에 도착했습니다.",
                  "시작 위치로 돌아왔습니다."]
+
+subtitle_screen_dic = {}
+
+
+def write_subtitle(subtitle_num):
+    font = pygame.font.Font('./Image/NanumSquareB.ttf', 40)
+    text = font.render(subtitle_list[subtitle_num], True, (84, 137, 222))
+    text_rect = text.get_rect()
+    text_rect.center = 960, 850
+    ourscreen.blit(text, text_rect)
 
 """class RosNode:
     def __init__(self):
