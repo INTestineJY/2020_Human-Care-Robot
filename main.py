@@ -6,7 +6,6 @@ from std_msgs.msg import Int32, Bool, Int32MultiArray"""
 from deokyongkim import *
 from sub_button_funtions import *
 from pygame.locals import *
-from more_function_parsing import get_news
 import ctypes
 from more_function_parsing import *
 
@@ -80,7 +79,7 @@ screen_list = []
 
 screen_stack = [1]
 
-for i in range(17):
+for i in range(16):
     example_screen = Scene(i)
     screen_list.append(example_screen)
 
@@ -110,19 +109,14 @@ def credit_button(e):
 count_frame = 0
 
 
-def new_function():
-    ttt = get_news()
-    hmm = ""
-    for some in ttt:
-        if len(some) >= 8:
-            hmm += some[0:8] + "..." + "\n"
-        else:
-            hmm += some + "\n"
-    return hmm
+def play_audio():
+    pygame.mixer.music.load("./audio/test.mp3")
+    pygame.mixer.music.set_volume(1)  # 1 ~ 0.1
+    pygame.mixer.music.play()
+    pass
 
 
-title = new_function()
-
+save_screen_stack = 0
 
 while not done:
     if screen == -1:
@@ -133,6 +127,10 @@ while not done:
         now_screen = screen_list[screen]
         ourscreen.blit(now_screen.sheet, (0, 0))
     # 화면을 띄운다
+
+    if save_screen_stack != len(screen_stack):
+        save_screen_stack = len(screen_stack)
+        play_audio()
 
     if screen == -1:
         for event in pygame.event.get():
@@ -343,7 +341,7 @@ while not done:
         if screen == 15:
             count_frame += 1
             arrow_count = count_frame // 10
-            image_name = "./image/test_image/" + "driving" +str(arrow_count % 3 + 1) + ".png"
+            image_name = "./image/test_image/" + "driving" + str(arrow_count % 3 + 1) + ".png"
             image = pygame.image.load(image_name)
             image = pygame.transform.scale(image, (250, 100))
             ourscreen.blit(image, (839, 513))
@@ -366,29 +364,12 @@ while not done:
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
-                        screen_stack.append(16)
+                        screen_stack.append(screen + i + 3)
                         print(screen_stack)
-                        screen = 16
+                        screen += 3 + i
 
                     if button_check is True:
                         break
-
-    elif screen == 16:
-        ####code here
-        text = font.render(title, True, (0, 0, 0))  # 텍스트가 표시된 Surface 를 만듬
-        ourscreen.blit(text, (870, 20))  # 화면에 표시
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:  # If user clicked close
-                done = True
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if back_button(event) is not True and credit_button(event) is not True:
-                    screen_stack.append(0)
-                    print(screen_stack)
-                    screen = 0
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                back_button(event)
-                credit_button(event)
 
     else:
         # 돌아다니면서 설명할 때
