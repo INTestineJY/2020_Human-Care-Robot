@@ -11,7 +11,8 @@ from more_function_parsing import *
 
 dest_list = ["", "S509", "S511", "S512", "S513", "S514", "S515", "S517", "S501", "S502", "S503", "S504", "S505", "S506",
              "S507", "S508", "S510", "S516", "A501", "A502", "A503", "A504", "A506", "A508", "A509", "A505", "A507"]
-dest_list_sub = ["", "지구과학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "융합창작실1", "융합창작실2", "공학실험실",
+dest_list_sub = ["", "지구과학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "융합창작실1", "융합창작실2",
+                 "공학실험실",
                  "고체지구과학실",
                  "지구과학실험실", "유체지구과학실", "천체관측실", "기구보관실", "교원연구실", "협의회실", "알고리즘 학습실", "미술실 1", "미술실 2", "그래픽 디자인실",
                  "미술실 3",
@@ -78,7 +79,7 @@ screen_list = []
 
 screen_stack = [1]
 
-for i in range(15):
+for i in range(16):
     example_screen = Scene(i)
     screen_list.append(example_screen)
 
@@ -104,6 +105,8 @@ def credit_button(e):
         screen = -1
         return True
 
+
+count_frame = 0
 
 while not done:
     if screen == -1:
@@ -284,7 +287,7 @@ while not done:
                         screen = 13
                         break
 
-    elif screen == 13:
+    elif screen == 13 or screen == 15:
         # 목적지
         font = pygame.font.Font('./Image/NanumSquareB.ttf', 88)
         text = font.render(dest_list[now_place_num], True, (84, 137, 222))
@@ -315,11 +318,19 @@ while not done:
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if back_button(event) is not True and credit_button(event) is not True:
+                if back_button(event) is not True and credit_button(event) is not True and screen is 13:
                     # messenger.destination(destination_num)
-                    screen_stack.append(0)
+                    screen_stack.append(15)
                     print(screen_stack)
-                    screen = 0
+                    screen = 15
+
+        if screen == 15:
+            count_frame += 1
+            arrow_count = count_frame // 10
+            image_name = "./image/test_image/" + "driving" +str(arrow_count % 3 + 1) + ".png"
+            image = pygame.image.load(image_name)
+            image = pygame.transform.scale(image, (250, 100))
+            ourscreen.blit(image, (839, 513))
 
     elif screen == 14:
         for event in pygame.event.get():
