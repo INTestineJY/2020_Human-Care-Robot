@@ -21,3 +21,9 @@ def is_credit_button(x, y):
     if credit_button_x1 <= x <= credit_button_x2 and credit_button_y1 <= y <= credit_button_y2:
         return True
     return False
+
+
+def next_screen_stack(screen_stack, screen):
+    screen_stack.append(screen)
+    return screen_stack, screen
+    pass

@@ -121,8 +121,7 @@ def new_function():
     return hmm
 
 
-title = get_news()
-
+title = new_function()
 
 while not done:
     if screen == -1:
@@ -157,9 +156,9 @@ while not done:
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if credit_button(event) is not True:
-                    screen_stack.append(2)
-                    print(screen_stack)
-                    screen = 2
+                    screen_stack, screen = next_screen_stack(screen_stack, 2)
+            if event.type == pygame.KEYUP:
+                screen_stack, screen = next_screen_stack(screen_stack, 2)
 
     elif screen == 2:
         # 방문자 유형 선택 화면
@@ -171,9 +170,10 @@ while not done:
                 credit_button(event)
                 for button in now_screen.buttons:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
-                        screen_stack.append(3)
-                        print(screen_stack)
-                        screen = 3
+                        screen_stack, screen = next_screen_stack(screen_stack, 3)
+            if event.type == pygame.KEYUP:
+                if event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_KP1, pygame.K_KP2, pygame.K_KP3]:
+                    screen_stack, screen = next_screen_stack(screen_stack, 3)
 
     elif screen == 3:
         # 이용 목적 선택
@@ -191,20 +191,21 @@ while not done:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
                         if i == 1:  # 학교 순회 선택
-                            screen_stack.append(0)
-                            print(screen_stack)
-                            screen = 0
+                            screen_stack, screen = next_screen_stack(screen_stack, 0)
                         elif i == 2:  # 목적지 선택
-                            screen_stack.append(4)
-                            print(screen_stack)
-                            screen = 4
+                            screen_stack, screen = next_screen_stack(screen_stack, 4)
                         else:  # 부가기능 선택
-                            screen_stack.append(14)
-                            print(screen_stack)
-                            screen = 14
+                            screen_stack, screen = next_screen_stack(screen_stack, 14)
 
                     if button_check is True:
                         break
+            if event.type == pygame.KEYUP:
+                if event.key in [pygame.K_1, pygame.K_KP1]:
+                    screen_stack, screen = next_screen_stack(screen_stack, 0)
+                elif event.key in [pygame.K_2, pygame.K_KP2]:
+                    screen_stack, screen = next_screen_stack(screen_stack, 4)
+                elif event.key in [pygame.K_1, pygame.K_KP1]:
+                    screen_stack, screen = next_screen_stack(screen_stack, 14)
 
     elif screen == 4:
         # S A 선택화면
@@ -218,17 +219,19 @@ while not done:
                 credit_button(event)
                 i = 0
                 for button in now_screen.buttons:
-                    print("check")
                     i += 1
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
-                        screen_stack.append(screen + i)
-                        print(screen_stack)
-                        screen += i
+                        screen_stack, screen = next_screen_stack(screen_stack, screen + i)
 
                     if button_check is True:
                         break
+            if event.type == pygame.KEYUP:
+                if event.key in [pygame.K_1, pygame.K_KP1]:
+                    screen_stack, screen = next_screen_stack(screen_stack, screen + 1)
+                if event.key in [pygame.K_2, pygame.K_KP2]:
+                    screen_stack, screen = next_screen_stack(screen_stack, screen + 2)
         pass
 
     elif screen == 5:
@@ -247,12 +250,17 @@ while not done:
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
-                        screen_stack.append(screen + i + 1)
-                        print(screen_stack)
-                        screen += 1 + i
+                        screen_stack, screen = next_screen_stack(screen_stack, screen + i + 1)
 
                     if button_check is True:
                         break
+            if event.type == pygame.KEYUP:
+                if event.key in [pygame.K_1, pygame.K_KP1]:
+                    screen_stack, screen = next_screen_stack(screen_stack, screen + 2)
+                if event.key in [pygame.K_2, pygame.K_KP2]:
+                    screen_stack, screen = next_screen_stack(screen_stack, screen + 3)
+                if event.key in [pygame.K_3, pygame.K_KP3]:
+                    screen_stack, screen = next_screen_stack(screen_stack, screen + 4)
         pass
 
     elif screen == 6:
@@ -271,12 +279,17 @@ while not done:
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
-                        screen_stack.append(screen + i + 3)
-                        print(screen_stack)
-                        screen += 3 + i
+                        screen_stack, screen = next_screen_stack(screen_stack, screen + i + 3)
 
                     if button_check is True:
                         break
+            if event.type == pygame.KEYUP:
+                if event.key in [pygame.K_1, pygame.K_KP1]:
+                    screen_stack, screen = next_screen_stack(screen_stack, screen + 4)
+                if event.key in [pygame.K_2, pygame.K_KP2]:
+                    screen_stack, screen = next_screen_stack(screen_stack, screen + 5)
+                if event.key in [pygame.K_3, pygame.K_KP3]:
+                    screen_stack, screen = next_screen_stack(screen_stack, screen + 6)
         pass
 
     elif 7 <= screen <= 12:
@@ -285,23 +298,47 @@ while not done:
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
 
+            button_check = False
+
+            i = 0
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
-                i = 0
+
                 for button in now_screen.buttons:
                     i += 1
-                    button_check = False
+
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
 
-                    if button_check is True:
-                        Screen_ClassButton_Num = 10 * screen + i
-                        destination_num = Screen_ClassButton_List.index(Screen_ClassButton_Num)
-                        screen_stack.append(13)
-                        print(screen_stack)
-                        screen = 13
-                        break
+            if event.type == pygame.KEYUP:
+                if event.key in [pygame.K_1, pygame.K_KP1]:
+                    button_check = True
+                    i = 1
+                if event.key in [pygame.K_2, pygame.K_KP2]:
+                    button_check = True
+                    i = 2
+                if event.key in [pygame.K_3, pygame.K_KP3]:
+                    button_check = True
+                    i = 3
+                if event.key in [pygame.K_4, pygame.K_KP4]:
+                    button_check = True
+                    i = 4
+                if event.key in [pygame.K_5, pygame.K_KP5]:
+                    button_check = True
+                    i = 5
+                if event.key in [pygame.K_6, pygame.K_KP6]:
+                    button_check = True
+                    i = 6
+                if event.key in [pygame.K_7, pygame.K_KP7]:
+                    button_check = True
+                    i = 7
+
+            if button_check is True:
+                Screen_ClassButton_Num = 10 * screen + i
+                destination_num = Screen_ClassButton_List.index(Screen_ClassButton_Num)
+                screen_stack, screen = next_screen_stack(screen_stack, 13)
+                break
 
     elif screen == 13 or screen == 15:
         # 목적지
@@ -343,7 +380,7 @@ while not done:
         if screen == 15:
             count_frame += 1
             arrow_count = count_frame // 10
-            image_name = "./image/test_image/" + "driving" +str(arrow_count % 3 + 1) + ".png"
+            image_name = "./image/test_image/" + "driving" + str(arrow_count % 3 + 1) + ".png"
             image = pygame.image.load(image_name)
             image = pygame.transform.scale(image, (250, 100))
             ourscreen.blit(image, (839, 513))
@@ -372,18 +409,20 @@ while not done:
     elif screen == 16:
         ####code here
 
-        asdf = 0
-        for i in title:
-            font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
-            text = font.render(i, True, (0, 0, 0))
-            text_rect = text.get_rect()
-            text_rect.center = 960, 300 + asdf
-            ourscreen.blit(text, text_rect)
-            asdf += 100
+        font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
+        text = font.render(title, True, (0, 0, 0))
+        text_rect = text.get_rect()
+        text_rect.center = 295, 217
+        ourscreen.blit(text, text_rect)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # If user clicked close
                 done = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if back_button(event) is not True and credit_button(event) is not True:
+                    screen_stack.append(0)
+                    print(screen_stack)
+                    screen = 0
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
@@ -397,4 +436,4 @@ while not done:
     pass
 
 print("finish")
-#blah
+# blah
