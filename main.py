@@ -375,8 +375,12 @@ while not done:
 
     elif screen == 16:
         ####code here
-        text = font.render(title, True, (0, 0, 0))  # 텍스트가 표시된 Surface 를 만듬
-        ourscreen.blit(text, (870, 20))  # 화면에 표시
+
+        font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
+        text = font.render(title, True, (84, 137, 222))
+        text_rect = text.get_rect()
+        text_rect.center = 631, 626
+        ourscreen.blit(text, text_rect)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # If user clicked close
