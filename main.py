@@ -115,7 +115,7 @@ def write_subtitle(subtitle_num):
 
 """class RosNode:
     def __init__(self):
-        self.pub1 = rospy.Publisher('stop', Bool, queue_size=10)
+        self.pub1 = rospy.Publisher('stop', Int32, queue_size=10)
         self.pub2 = rospy.Publisher('order', Int32, queue_size=10)
         self.sub1 = rospy.Subscriber('visit', Int32, self.via)
         self.sub2 = rospy.Subscriber('pivot_pos', Int32MultiArray, self.user_recognize)
@@ -189,6 +189,14 @@ def back_button(e):
         return True
 
 
+def esc_button(e):
+    global done
+    if e.key == pygame.K_ESCAPE:
+        done = True
+        return True
+    return False
+
+
 def credit_button(e):
     global screen, screen_stack
     if is_credit_button(e.pos[0], e.pos[1]) is True:
@@ -237,8 +245,11 @@ def play_audio_running(music_num):
 
 
 check_audio_dest = False
+
+
 def play_audio_dest():
     pass
+
 
 while not done:
     if screen == -1:
@@ -264,6 +275,8 @@ while not done:
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
+            if event.type == pygame.KEYUP:
+                esc_button(event)
 
     if screen == 0:
         # 임시 화면
@@ -273,6 +286,8 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
+            if event.type == pygame.KEYUP:
+                esc_button(event)
 
     elif screen == 1:
         # 첫 화면
@@ -283,6 +298,7 @@ while not done:
                 if credit_button(event) is not True:
                     screen_stack, screen = next_screen_stack(screen_stack, 2)
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 screen_stack, screen = next_screen_stack(screen_stack, 2)
 
     elif screen == 2:
@@ -297,7 +313,7 @@ while not done:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         screen_stack, screen = next_screen_stack(screen_stack, 3)
             if event.type == pygame.KEYUP:
-                if event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_KP1, pygame.K_KP2, pygame.K_KP3]:
+                if esc_button(event) is False and event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_KP1, pygame.K_KP2, pygame.K_KP3]:
                     screen_stack, screen = next_screen_stack(screen_stack, 3)
 
     elif screen == 3:
@@ -309,6 +325,7 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
+                esc_button(event)
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
@@ -325,6 +342,7 @@ while not done:
                     if button_check is True:
                         break
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 if event.key in [pygame.K_1, pygame.K_KP1]:
                     screen_stack, screen = next_screen_stack(screen_stack, 0)
                 elif event.key in [pygame.K_2, pygame.K_KP2]:
@@ -353,6 +371,7 @@ while not done:
                     if button_check is True:
                         break
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 if event.key in [pygame.K_1, pygame.K_KP1]:
                     screen_stack, screen = next_screen_stack(screen_stack, screen + 1)
                 if event.key in [pygame.K_2, pygame.K_KP2]:
@@ -380,6 +399,7 @@ while not done:
                     if button_check is True:
                         break
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 if event.key in [pygame.K_1, pygame.K_KP1]:
                     screen_stack, screen = next_screen_stack(screen_stack, screen + 2)
                 if event.key in [pygame.K_2, pygame.K_KP2]:
@@ -409,6 +429,7 @@ while not done:
                     if button_check is True:
                         break
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 if event.key in [pygame.K_1, pygame.K_KP1]:
                     screen_stack, screen = next_screen_stack(screen_stack, screen + 4)
                 if event.key in [pygame.K_2, pygame.K_KP2]:
@@ -438,6 +459,7 @@ while not done:
                         break
 
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 if event.key in [pygame.K_1, pygame.K_KP1]:
                     button_check = True
                     i = 1
