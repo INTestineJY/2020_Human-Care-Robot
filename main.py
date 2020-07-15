@@ -213,12 +213,32 @@ def new_function():
 title = get_news()
 
 
-def play_audio():
-    pygame.mixer.music.load('./audio/test.mp3')
-    pygame.mixer.music.play()
+def play_audio(music_screen, music_num):
+    music_name = "audio_" + str(music_screen) + "_" + str(music_num)
+    try:
+        pygame.mixer.music.load('./audio/' + str(music_name) + '.mp3')
+        pygame.mixer.music.play()
+        return music_num + 1
+    except:
+        print("play audio error")
+        return music_num
 
 
-save_screen_stack = 0
+now_music_num = 1
+
+
+def play_audio_running(music_num):
+    music_name = "audio_" + str(dest_list[music_num])
+    try:
+        pygame.mixer.music.load('./audio/' + str(music_name) + '.mp3')
+        pygame.mixer.music.play()
+    except:
+        print("robot running audio error")
+
+
+check_audio_dest = False
+def play_audio_dest():
+    pass
 
 while not done:
     if screen == -1:
@@ -230,9 +250,13 @@ while not done:
         ourscreen.blit(now_screen.sheet, (0, 0))
     # 화면을 띄운다
 
-    if save_screen_stack != len(screen_stack):
-        save_screen_stack = len(screen_stack)
-        play_audio()
+    # write_subtitle()
+
+    if not pygame.mixer.music.get_busy():
+        if screen <= 14 or screen == 16:
+            play_audio(screen, now_music_num)
+        elif screen == 15:
+            pass
 
     if screen == -1:
         for event in pygame.event.get():
@@ -489,7 +513,12 @@ while not done:
 
             if now_place_num == destination_num:
                 # messenger.pub1.publish(1)
-                pass
+                if not check_audio_dest:
+                    check_audio_dest = True
+                    play_audio_dest()
+                if not pygame.mixer.music.get_busy():
+                    # messenger.pub1.publish(0)
+                    pass
             elif robot_now_place_num != now_place_num and not pygame.mixer.music.get_busy():
                 now_place_num = robot_now_place_num
 
