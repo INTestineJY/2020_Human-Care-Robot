@@ -468,26 +468,26 @@ while not done:
 
     elif screen == 13 or screen == 15:
         # 목적지
-        font = pygame.font.Font('./Image/NanumSquareB.ttf', 88)
+        font = pygame.font.Font('./image/NanumSquareB.ttf', 88)
         text = font.render(dest_list[now_place_num], True, (84, 137, 222))
         text_rect = text.get_rect()
         text_rect.center = 631, 526
         ourscreen.blit(text, text_rect)
 
-        font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
+        font = pygame.font.Font('./image/NanumSquareB.ttf', 44)
         text = font.render(dest_list_sub[now_place_num], True, (84, 137, 222))
         text_rect = text.get_rect()
         text_rect.center = 631, 626
         ourscreen.blit(text, text_rect)
 
         # 현재 위치
-        font = pygame.font.Font('./Image/NanumSquareB.ttf', 88)
+        font = pygame.font.Font('./image/NanumSquareB.ttf', 88)
         text = font.render(dest_list[destination_num], True, (84, 137, 222))
         text_rect = text.get_rect()
         text_rect.center = 1283, 526
         ourscreen.blit(text, text_rect)
 
-        font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
+        font = pygame.font.Font('./image/NanumSquareB.ttf', 44)
         text = font.render(dest_list_sub[destination_num], True, (84, 137, 222))
         text_rect = text.get_rect()
         text_rect.center = 1283, 626
@@ -548,7 +548,7 @@ while not done:
 
         asdf = 0
         for i in title:
-            font = pygame.font.Font('./Image/NanumSquareB.ttf', 44)
+            font = pygame.font.Font('./image/NanumSquareB.ttf', 44)
             text = font.render(i, True, (0, 0, 0))
             text_rect = text.get_rect()
             text_rect.center = 960, 300 + asdf
