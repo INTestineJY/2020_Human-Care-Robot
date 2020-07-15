@@ -540,6 +540,9 @@ while not done:
                     play_audio_dest()
                 if not pygame.mixer.music.get_busy():
                     # messenger.pub1.publish(0)
+                    screen = 1
+                    now_place_num = 10
+                    robot_now_place_num = 10
                     pass
             elif robot_now_place_num != now_place_num and not pygame.mixer.music.get_busy():
                 now_place_num = robot_now_place_num
