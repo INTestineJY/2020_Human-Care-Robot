@@ -241,8 +241,8 @@ check_play_audio_select = False
 def play_audio_select(music_num):
     music_name = "select_" + dest_list[music_num]
     try:
-        pygame.mixer.music.load('./audio/' + str(music_name) + '.wav')
-        pygame.mixer.music.play()
+        select_music = pygame.mixer.Sound('./audio/' + str(music_name) + '.wav')
+        pygame.mixer.Sound.play(select_music)
     except Exception as e:
         print(e)
         print("robot running audio error")
