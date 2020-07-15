@@ -175,9 +175,9 @@ for i in range(17):
 
 done = False
 
-user32 = ctypes.windll.user32
-screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
-pygame.display.set_mode(screensize, FULLSCREEN)
+# user32 = ctypes.windll.user32
+# screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+pygame.display.set_mode([1920, 1080], FULLSCREEN)
 
 
 def back_button(e):
