@@ -562,10 +562,6 @@ while not done:
                 back_button(event)
                 credit_button(event)
 
-    else:
-        # 돌아다니면서 설명할 때
-        pass
-
     pygame.display.update()
     clock.tick(10)
     pass
