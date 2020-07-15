@@ -411,6 +411,7 @@ while not done:
 
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
+                        break
 
             if event.type == pygame.KEYUP:
                 if event.key in [pygame.K_1, pygame.K_KP1]:
