@@ -227,7 +227,8 @@ def play_audio(music_screen, music_num):
         pygame.mixer.music.load('./audio/' + str(music_name) + '.mp3')
         pygame.mixer.music.play()
         return music_num + 1
-    except:
+    except Exception as e:
+        print(e)
         print("play audio error")
         return music_num
 
@@ -238,11 +239,12 @@ check_play_audio_select = False
 
 
 def play_audio_select(music_num):
-    music_name = "select_" + str(dest_list[music_num])
+    music_name = "select_" + dest_list[music_num]
     try:
-        pygame.mixer.music.load('./audio/' + str(music_name) + '.mp3')
+        pygame.mixer.music.load('./audio/' + str(music_name) + '.wav')
         pygame.mixer.music.play()
-    except:
+    except Exception as e:
+        print(e)
         print("robot running audio error")
 
 
@@ -262,6 +264,8 @@ def play_audio_dest():
     pass
 
 
+pre_screen = 1
+
 while not done:
     if screen == -1:
         image_name = "./image/test_image/대지 100.png"
@@ -275,8 +279,11 @@ while not done:
     # write_subtitle()
 
     if not pygame.mixer.music.get_busy():
-        if screen <= 14 or screen == 16:
-            play_audio(screen, now_music_num)
+        if pre_screen != screen:
+            now_music_num = 1
+            pre_screen = screen
+        if screen <= 12 or screen == 16:
+            now_music_num = play_audio(screen, now_music_num)
         elif screen == 15:
             pass
 
@@ -320,9 +327,15 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
+                i = 0
                 for button in now_screen.buttons:
+                    i += 1
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
+                        music_name = "screen_" + str(screen) + "_" + str(i)
+                        pygame.mixer.music.load('./audio/' + music_name + '.mp3')
+                        pygame.mixer.music.play()
                         screen_stack, screen = next_screen_stack(screen_stack, 3)
+                        break
             if event.type == pygame.KEYUP:
                 if esc_button(event) is False and event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_KP1,
                                                                 pygame.K_KP2, pygame.K_KP3]:
@@ -337,13 +350,15 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
-                esc_button(event)
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
+                        music_name = "screen_" + str(screen) + "_" + str(i)
+                        pygame.mixer.music.load('./audio/' + music_name + '.mp3')
+                        pygame.mixer.music.play()
                         if i == 1:  # 학교 순회 선택
                             screen_stack, screen = next_screen_stack(screen_stack, 0)
                         elif i == 2:  # 목적지 선택
@@ -351,15 +366,27 @@ while not done:
                         else:  # 부가기능 선택
                             screen_stack, screen = next_screen_stack(screen_stack, 14)
 
-                    if button_check is True:
-                        break
+                        if button_check is True:
+                            break
             if event.type == pygame.KEYUP:
                 esc_button(event)
                 if event.key in [pygame.K_1, pygame.K_KP1]:
+                    i = 1
+                    music_name = "screen_" + str(screen) + "_" + str(i)
+                    pygame.mixer.music.load('./audio/' + music_name + '.mp3')
+                    pygame.mixer.music.play()
                     screen_stack, screen = next_screen_stack(screen_stack, 0)
                 elif event.key in [pygame.K_2, pygame.K_KP2]:
+                    i = 2
+                    music_name = "screen_" + str(screen) + "_" + str(i)
+                    pygame.mixer.music.load('./audio/' + music_name + '.mp3')
+                    pygame.mixer.music.play()
                     screen_stack, screen = next_screen_stack(screen_stack, 4)
                 elif event.key in [pygame.K_1, pygame.K_KP1]:
+                    i = 3
+                    music_name = "screen_" + str(screen) + "_" + str(i)
+                    pygame.mixer.music.load('./audio/' + music_name + '.mp3')
+                    pygame.mixer.music.play()
                     screen_stack, screen = next_screen_stack(screen_stack, 14)
 
     elif screen == 4:
@@ -406,6 +433,9 @@ while not done:
                     button_check = False
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
+                        music_name = "screen_" + str(screen) + "_" + str(i)
+                        pygame.mixer.music.load('./audio/' + music_name + '.mp3')
+                        pygame.mixer.music.play()
                         screen_stack, screen = next_screen_stack(screen_stack, screen + i + 1)
 
                     if button_check is True:
@@ -502,7 +532,9 @@ while not done:
 
     elif screen == 13 or screen == 15:
         # 목적지
-        if not pygame.mixer.get_busy() and not check_play_audio_select:
+
+        if not check_play_audio_select:
+            print("select")
             check_play_audio_select = True
             play_audio_select(destination_num)
 
