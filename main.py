@@ -106,7 +106,7 @@ subtitle_screen_dic = {}
 
 
 def write_subtitle(subtitle_num):
-    font = pygame.font.Font('./image/NanumSquareB.ttf', 40)
+    font = pygame.font.Font('./Image/NanumSquareB.ttf', 40)
     text = font.render(subtitle_list[subtitle_num], True, (84, 137, 222))
     text_rect = text.get_rect()
     text_rect.center = 960, 850
@@ -115,7 +115,7 @@ def write_subtitle(subtitle_num):
 
 """class RosNode:
     def __init__(self):
-        self.pub1 = rospy.Publisher('stop', Bool, queue_size=10)
+        self.pub1 = rospy.Publisher('stop', Int32, queue_size=10)
         self.pub2 = rospy.Publisher('order', Int32, queue_size=10)
         self.sub1 = rospy.Subscriber('visit', Int32, self.via)
         self.sub2 = rospy.Subscriber('pivot_pos', Int32MultiArray, self.user_recognize)
@@ -175,9 +175,9 @@ for i in range(17):
 
 done = False
 
-user32 = ctypes.windll.user32
-screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
-pygame.display.set_mode(screensize, FULLSCREEN)
+# user32 = ctypes.windll.user32
+# screensize = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
+pygame.display.set_mode([1920, 1080], FULLSCREEN)
 
 
 def back_button(e):
@@ -187,6 +187,14 @@ def back_button(e):
         print(screen_stack)
         screen = screen_stack[-1]
         return True
+
+
+def esc_button(e):
+    global done
+    if e.key == pygame.K_ESCAPE:
+        done = True
+        return True
+    return False
 
 
 def credit_button(e):
@@ -213,12 +221,46 @@ def new_function():
 title = get_news()
 
 
-def play_audio():
-    pygame.mixer.music.load('./audio/test.mp3')
-    pygame.mixer.music.play()
+def play_audio(music_screen, music_num):
+    music_name = "audio_" + str(music_screen) + "_" + str(music_num)
+    try:
+        pygame.mixer.music.load('./audio/' + str(music_name) + '.mp3')
+        pygame.mixer.music.play()
+        return music_num + 1
+    except:
+        print("play audio error")
+        return music_num
 
 
-save_screen_stack = 0
+now_music_num = 1
+
+check_play_audio_select = False
+
+
+def play_audio_select(music_num):
+    music_name = "select_" + str(dest_list[music_num])
+    try:
+        pygame.mixer.music.load('./audio/' + str(music_name) + '.mp3')
+        pygame.mixer.music.play()
+    except:
+        print("robot running audio error")
+
+
+def play_audio_running(music_num):
+    music_name = "witch_" + str(dest_list[music_num])
+    try:
+        pygame.mixer.music.load('./audio/' + str(music_name) + '.mp3')
+        pygame.mixer.music.play()
+    except:
+        print("robot running audio error")
+
+
+check_audio_dest = False
+
+
+def play_audio_dest():
+    pass
+
 
 while not done:
     if screen == -1:
@@ -230,9 +272,13 @@ while not done:
         ourscreen.blit(now_screen.sheet, (0, 0))
     # 화면을 띄운다
 
-    if save_screen_stack != len(screen_stack):
-        save_screen_stack = len(screen_stack)
-        play_audio()
+    # write_subtitle()
+
+    if not pygame.mixer.music.get_busy():
+        if screen <= 14 or screen == 16:
+            play_audio(screen, now_music_num)
+        elif screen == 15:
+            pass
 
     if screen == -1:
         for event in pygame.event.get():
@@ -240,6 +286,8 @@ while not done:
                 done = True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
+            if event.type == pygame.KEYUP:
+                esc_button(event)
 
     if screen == 0:
         # 임시 화면
@@ -249,6 +297,8 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
+            if event.type == pygame.KEYUP:
+                esc_button(event)
 
     elif screen == 1:
         # 첫 화면
@@ -259,6 +309,7 @@ while not done:
                 if credit_button(event) is not True:
                     screen_stack, screen = next_screen_stack(screen_stack, 2)
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 screen_stack, screen = next_screen_stack(screen_stack, 2)
 
     elif screen == 2:
@@ -273,7 +324,8 @@ while not done:
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         screen_stack, screen = next_screen_stack(screen_stack, 3)
             if event.type == pygame.KEYUP:
-                if event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_KP1, pygame.K_KP2, pygame.K_KP3]:
+                if esc_button(event) is False and event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_KP1,
+                                                                pygame.K_KP2, pygame.K_KP3]:
                     screen_stack, screen = next_screen_stack(screen_stack, 3)
 
     elif screen == 3:
@@ -285,6 +337,7 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
+                esc_button(event)
                 i = 0
                 for button in now_screen.buttons:
                     i += 1
@@ -301,6 +354,7 @@ while not done:
                     if button_check is True:
                         break
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 if event.key in [pygame.K_1, pygame.K_KP1]:
                     screen_stack, screen = next_screen_stack(screen_stack, 0)
                 elif event.key in [pygame.K_2, pygame.K_KP2]:
@@ -329,6 +383,7 @@ while not done:
                     if button_check is True:
                         break
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 if event.key in [pygame.K_1, pygame.K_KP1]:
                     screen_stack, screen = next_screen_stack(screen_stack, screen + 1)
                 if event.key in [pygame.K_2, pygame.K_KP2]:
@@ -356,6 +411,7 @@ while not done:
                     if button_check is True:
                         break
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 if event.key in [pygame.K_1, pygame.K_KP1]:
                     screen_stack, screen = next_screen_stack(screen_stack, screen + 2)
                 if event.key in [pygame.K_2, pygame.K_KP2]:
@@ -385,6 +441,7 @@ while not done:
                     if button_check is True:
                         break
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 if event.key in [pygame.K_1, pygame.K_KP1]:
                     screen_stack, screen = next_screen_stack(screen_stack, screen + 4)
                 if event.key in [pygame.K_2, pygame.K_KP2]:
@@ -411,8 +468,10 @@ while not done:
 
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
                         button_check = True
+                        break
 
             if event.type == pygame.KEYUP:
+                esc_button(event)
                 if event.key in [pygame.K_1, pygame.K_KP1]:
                     button_check = True
                     i = 1
@@ -443,6 +502,10 @@ while not done:
 
     elif screen == 13 or screen == 15:
         # 목적지
+        if not pygame.mixer.get_busy() and not check_play_audio_select:
+            check_play_audio_select = True
+            play_audio_select(destination_num)
+
         font = pygame.font.Font('./image/NanumSquareB.ttf', 88)
         text = font.render(dest_list[now_place_num], True, (84, 137, 222))
         text_rect = text.get_rect()
@@ -488,7 +551,16 @@ while not done:
 
             if now_place_num == destination_num:
                 # messenger.pub1.publish(1)
-                pass
+                if not check_audio_dest:
+                    check_audio_dest = True
+                    play_audio_dest()
+                if not pygame.mixer.music.get_busy():
+                    # messenger.pub1.publish(0)
+                    screen = 1
+                    now_place_num = 10
+                    robot_now_place_num = 10
+                    check_play_audio_select = False
+                    pass
             elif robot_now_place_num != now_place_num and not pygame.mixer.music.get_busy():
                 now_place_num = robot_now_place_num
 
@@ -531,10 +603,6 @@ while not done:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 back_button(event)
                 credit_button(event)
-
-    else:
-        # 돌아다니면서 설명할 때
-        pass
 
     pygame.display.update()
     clock.tick(10)
