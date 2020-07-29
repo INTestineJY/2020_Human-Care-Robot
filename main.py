@@ -10,6 +10,8 @@ from more_function_parsing import get_news
 import ctypes
 from more_function_parsing import *
 
+flag_blind = False
+
 dest_list = ["", "S509", "S511", "S512", "S513", "S514", "S515", "S517", "S501", "S502", "S503", "S504", "S505", "S506",
              "S507", "S508", "S510", "S516", "A501", "A502", "A503", "A504", "A506", "A508", "A509", "A505", "A507", ""]
 dest_list_sub = ["", "지구과학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "수학 강의실", "융합창작실1", "융합창작실2",
@@ -230,6 +232,10 @@ def play_audio(music_screen, music_num):
     except Exception as e:
         print(e)
         print("play audio error")
+        if flag_blind is True:
+            print("beep")
+            pygame.mixer.music.load('./audio/' + "beep" + '.mp3')
+            pygame.mixer.music.play()
         return music_num
 
 
@@ -331,6 +337,8 @@ while not done:
                 for button in now_screen.buttons:
                     i += 1
                     if button.isClicked(event.pos[0], event.pos[1]) is True:
+                        if i is 2:
+                            flag_blind = True
                         music_name = "screen_" + str(screen) + "_" + str(i)
                         pygame.mixer.music.load('./audio/' + music_name + '.mp3')
                         pygame.mixer.music.play()
